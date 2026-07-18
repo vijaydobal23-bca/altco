@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+html, body {
+  overscroll-behavior: none;
+}
+
+* {
+  font-family: 'Fredoka', sans-serif;
+}
+
+.slideanimation1{
+   animation-name: slide1;
+  animation-duration: 10s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.slideanimation2{
+   animation-name: slide2;
+  animation-duration: 10s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes slide1{
+  0%{
+    transform: translateX(0%);
+  }
+  100%{
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes slide2{
+  0%{
+    transform: translateX(0%);
+  }
+  100%{
+    transform: translateX(100%);
+  }
+}
+
+.protine{
+  animation-name: move;
+  animation-duration: 3s;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes move {
+  0%{
+     transform: translateY(0%);
+  }
+  100%{
+     transform: translateY(-8%);
+  }
+}
+
+.move{
+  animation-name: move;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+  
