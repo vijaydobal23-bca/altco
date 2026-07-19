@@ -3,6 +3,8 @@ import Navbar from "../components/Navbar";
 import { useAuth } from "../../auth/hooks/useAuth";
 import Hero from "../components/Hero";
 import ProductSection from "../components/ProductSection";
+import MessageSection from "../components/messageSection";
+import OatsSection from "../components/OatsSection";
 
 const features = [
   {
@@ -49,6 +51,9 @@ function HomePage() {
      <main>
       <Hero />
       <ProductSection/>
+      <MessageSection/>
+      <OatsSection/>
+      <div className="h-screen bg-red-400"></div>
      
      </main>
 
