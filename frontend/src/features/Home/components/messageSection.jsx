@@ -3,14 +3,43 @@ import gsap from "gsap";
 
 gsap.registerPlugin(useGSAP);
 
-const LeafShape = ({ color, topText, bottomText, topTextSize = 12, bottomTextSize = 12, rotationClass }) => (
-  <div className={`max-sm:scale-90 w-[35vw] sm:w-48 md:w-56 lg:w-64 flex justify-center items-center ${rotationClass} drop-shadow-xl mb-2 sm:mb-0`}>
-    <svg viewBox="0 0 120 70" className="w-full h-auto">
-      <path d="M10,35 Q60,-5 110,35 Q60,75 10,35 Z" fill={color} />
-      <line x1="15" y1="35" x2="105" y2="35" stroke="#300514" strokeWidth="1.5" />
-      <text x="60" y="21" textAnchor="middle" alignmentBaseline="middle" fill="#300514" fontSize={topTextSize} className="font-sans font-black tracking-tight">{topText}</text>
-      <text x="60" y="50" textAnchor="middle" alignmentBaseline="middle" fill="#300514" fontSize={bottomTextSize} className="font-sans font-black tracking-tight">{bottomText}</text>
-    </svg>
+const Leaf = ({ color, topText, bottomText, rotation = 20 }) => (
+  <svg
+    viewBox="0 0 130 80"
+    style={{ transform: `rotate(${rotation}deg)` }}
+    className="w-[90px] sm:w-[120px] md:w-[140px] lg:w-[160px] h-auto drop-shadow-lg"
+  >
+    <path d="M10,40 Q65,-5 120,40 Q65,85 10,40 Z" fill={color} />
+    <line x1="15" y1="40" x2="115" y2="40" stroke="#300514" strokeWidth="1.5" />
+    <text
+      x="65" y="26"
+      textAnchor="middle"
+      dominantBaseline="middle"
+      fill="#300514"
+      fontSize="13"
+      fontWeight="800"
+      fontStyle="italic"
+      fontFamily="sans-serif"
+    >{topText}</text>
+    <text
+      x="65" y="56"
+      textAnchor="middle"
+      dominantBaseline="middle"
+      fill="#300514"
+      fontSize="13"
+      fontWeight="800"
+      fontStyle="italic"
+      fontFamily="sans-serif"
+    >{bottomText}</text>
+  </svg>
+);
+
+const FeatureItem = ({ color, topText, bottomText, rotation }) => (
+  <div className="flex flex-col items-start gap-2 sm:gap-3">
+    <Leaf color={color} topText={topText} bottomText={bottomText} rotation={rotation} />
+    <p className="text-white text-[11px] sm:text-[13px] md:text-[15px] leading-snug font-normal w-[22vw] sm:w-[18vw] md:w-[15vw] lg:w-[220px]">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. At, in.
+    </p>
   </div>
 );
 
@@ -30,41 +59,30 @@ const MessageSection = () => {
         </div>
       </div>
 
-      <div className="message md:h-screen h-[80vh] w-full  flex justify-center items-center overflow-hidden relative">
-        
-        <h1 className="text-[#a874e5] text-[20vw] sm:text-[17vw] leading-[0.85] text-center uppercase m-0 flex flex-col tracking-tighter relative z-0 font-medium">
-          <span>GOOD</span>
-          <span>GUT</span>
-        </h1>
+      <div className="message md:h-screen h-[80vh] w-full flex flex-row items-stretch overflow-hidden relative px-[3vw] sm:px-[4vw]">
 
-        <div className="leaf-con absolute top-0 sm:top-1/2 left-1/2 -translate-x-1/2 translate-y-[40%] sm:-translate-y-1/2 flex flex-col gap-[8vw] sm:gap-[10vw] -mt-[1vw] z-10 w-full pointer-events-none">
-          <div className="flex w-[85vw] sm:w-[70vw] justify-between mx-auto pointer-events-auto" style={{maxWidth: '1075.2px'}}>
-            <div className="leaf flex flex-col items-center sm:gap-5" style={{opacity: 1}}>
-              <LeafShape color="#98c946" topText="100%" bottomText="Vegan" rotationClass="rotate-[20deg]" />
-              <p className="text-white font-neuhas w-[30vw] sm:w-[20vw] text-[10px] md:text-[15px] text-center mt-2 sm:mt-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. At, in.</p>
-            </div>
-            <div className="leaf flex flex-col items-center sm:gap-5" style={{opacity: 1}}>
-              <LeafShape color="#98c946" topText="100%" bottomText="Vegan" rotationClass="rotate-[20deg]" />
-              <p className="text-white font-neuhas w-[30vw] sm:w-[20vw] text-[10px] md:text-[15px] text-center mt-2 sm:mt-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. At, in.</p>
-            </div>
-          </div>
-          <div className="flex w-[85vw] sm:w-[70vw] justify-between mx-auto pointer-events-auto" style={{maxWidth: '1075.2px'}}>
-            <div className="leaf flex flex-col items-center sm:gap-5" style={{opacity: 1}}>
-
-              <LeafShape color="#efd510" topText="Complete" bottomText="Protein" topTextSize={10.5} bottomTextSize={11.5} rotationClass="-rotate-[20deg]" />
-              <p className="text-white font-neuhas w-[30vw] sm:w-[20vw] text-[10px] md:text-[15px] text-center mt-2 sm:mt-0">Lorem ipsum dolor sit amet consectetur adipisicing </p>
-            </div>
-            <div className="leaf flex flex-col items-center sm:gap-5" style={{opacity: 1}}>
-
-              <LeafShape color="#efd510" topText="Complete" bottomText="Protein" topTextSize={10.5} bottomTextSize={11.5} rotationClass="-rotate-[20deg]" />
-              <p className="text-white font-neuhas w-[30vw] sm:w-[20vw] text-[10px] md:text-[15px] text-center mt-2 sm:mt-0">Lorem ipsum dolor sit amet consectetur adipisicing </p>
-            </div>
-          </div>
+        {/* Left Column */}
+        <div className="flex flex-col justify-between py-[5%] w-[25vw] sm:w-[22vw] md:w-[20vw] lg:w-[18vw] shrink-0">
+          <FeatureItem color="#98c946" topText="100%" bottomText="Vegan" rotation={20} />
+          <FeatureItem color="#efd510" topText="Complete" bottomText="Protein" rotation={-20} />
         </div>
 
-        
+        {/* Center — GOOD GUT */}
+        <div className="flex-1 flex justify-center items-center">
+          <h1 className="text-[#a874e5] text-[20vw] sm:text-[17vw] leading-[0.85] text-center uppercase m-0 flex flex-col tracking-tighter font-medium">
+            <span>GOOD</span>
+            <span>GUT</span>
+          </h1>
+        </div>
+
+        {/* Right Column */}
+        <div className="flex flex-col justify-between py-[5%] w-[25vw] sm:w-[22vw] md:w-[20vw] lg:w-[18vw] shrink-0 items-start">
+          <FeatureItem color="#98c946" topText="100%" bottomText="Vegan" rotation={20} />
+          <FeatureItem color="#efd510" topText="Complete" bottomText="Protein" rotation={-20} />
+        </div>
 
       </div>
+
       <div className="w-full  relative">
           <div className=" slideanimation2 flex flex-row-reverse  bottom-0">
           <img src="images/cover3.svg" alt="" />
