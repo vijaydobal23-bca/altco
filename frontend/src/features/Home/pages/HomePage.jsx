@@ -5,6 +5,8 @@ import Hero from "../components/Hero";
 import ProductSection from "../components/ProductSection";
 import MessageSection from "../components/messageSection";
 import OatsSection from "../components/OatsSection";
+import Hero2 from "../components/Hero2";
+import DrinkSection from "../components/DrinkSection";
 
 const features = [
   {
@@ -53,6 +55,8 @@ function HomePage() {
       <ProductSection/>
       <MessageSection/>
       <OatsSection/>
+      <Hero2/>
+      <DrinkSection/>
       <div className="h-screen bg-red-400"></div>
      
      </main>

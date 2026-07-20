@@ -7,15 +7,29 @@ import { CartContextProvider } from "../features/Home/home.context";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { useGSAP } from "@gsap/react";
-gsap.registerPlugin(ScrollTrigger, useGSAP);
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother, useGSAP);
 
 function App() {
+  useGSAP(() => {
+    ScrollSmoother.create({
+      wrapper: "#smooth-wrapper",
+      content: "#smooth-content",
+      smooth: 1.5,
+      effects: true,
+    });
+  });
+
   return (
     <AuthContextProvider>
       <CartContextProvider>
         <SellerContextProvider>
-          <RouterProvider router={routes} />
+          <div id="smooth-wrapper">
+            <div id="smooth-content">
+              <RouterProvider router={routes} />
+            </div>
+          </div>
         </SellerContextProvider>
         <Toaster
           position="top-right"

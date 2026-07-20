@@ -13,7 +13,6 @@ const OatsSection = () => {
       const oatsTl = gsap.timeline({
         scrollTrigger: {
           trigger: ".oats-section",
-          markers: true,
           start: "top 0%",
           end: "top -200%",
           scrub: 1,
@@ -55,7 +54,7 @@ const OatsSection = () => {
   return (
     <>
       <section className="oats-section md:h-screen h-[70vh] w-screen bg-[#B16CDF] relative flex justify-center items-center">
-        <h1 className="md:text-[350px] lg:text-[400px] text-[150px] absolute text-white font-medium overflow-hidden ">
+        <h1 className="md:text-[28vw] lg:text-[30vw] text-[150px] absolute text-white font-medium overflow-hidden ">
           OATS
         </h1>
 

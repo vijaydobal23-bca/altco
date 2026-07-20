@@ -102,7 +102,7 @@ const ProductSection = () => {
                 <div className="protine absolute z-10">
                   <img src={item.img} alt="" className={`md:w-150 w-100 protine-${index}`} />
                 </div>
-                <h2 className="text-white md:text-[400px] text-[100px]  font-medium tracking-tighter">{item.name}</h2>
+                <h2 className="text-white md:text-[25vw] lg:text-[28vw] text-[100px]  font-medium tracking-tighter">{item.name}</h2>
                 </div>
             )
           })}

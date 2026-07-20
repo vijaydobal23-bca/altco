@@ -16,9 +16,9 @@ const routes = createBrowserRouter([
   {
     path: "/",
     element: (
-      <AuthRoute>
+      
         <HomePage />
-      </AuthRoute>
+      
     ),
   },
   {
@@ -89,4 +89,4 @@ const routes = createBrowserRouter([
   },
 ]);
 
-export default routes;
+export default routes;
