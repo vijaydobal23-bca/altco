@@ -48,114 +48,148 @@ function SellerOrders() {
   }
 
   return (
-    <div className="min-h-screen bg-white p-6 relative overflow-hidden">
-      {/* Glow blobs */}
+    <div className="min-h-screen bg-blue-500 text-white p-6 relative overflow-hidden pb-20">
+      {/* Decorative Glows */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-yellow-200 rounded-full opacity-30 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-yellow-100 rounded-full opacity-40 blur-3xl" />
+        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-blue-400/40 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-blue-300/20 rounded-full blur-[120px]" />
       </div>
 
-      <div className="relative max-w-5xl mx-auto mb-6 flex items-center justify-between">
+      <div className="relative max-w-5xl mx-auto mb-10 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
         <div>
           <button
             onClick={() => navigate("/seller")}
-            className="flex items-center gap-2 text-stone-600 hover:text-stone-900 font-bold text-sm transition-colors mb-2"
+            className="flex items-center gap-2 text-blue-200 hover:text-white font-bold text-xs uppercase tracking-widest transition-colors mb-4 bg-white/5 hover:bg-white/10 px-5 py-2.5 rounded-full border border-white/10 w-fit"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
             </svg>
             Dashboard
           </button>
-          <h1 className="text-2xl font-black text-stone-900">Manage Orders</h1>
+          <h1 className="text-4xl font-serif text-white tracking-tight">Manage Orders</h1>
         </div>
       </div>
 
-      <div className="relative max-w-5xl mx-auto space-y-4">
+      <div className="relative max-w-5xl mx-auto space-y-6">
         {loading ? (
-          <div className="flex justify-center py-20">
-            <svg className="w-8 h-8 animate-spin text-amber-400" fill="none" viewBox="0 0 24 24">
+          <div className="flex justify-center py-32">
+            <svg className="w-10 h-10 animate-spin text-white/50" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
             </svg>
           </div>
         ) : orders.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-64 text-center backdrop-blur-xl bg-white/70 border border-yellow-200/60 rounded-3xl">
-            <h3 className="text-stone-900 font-black text-lg mb-1">No Orders Yet</h3>
-            <p className="text-stone-500 font-medium text-sm">When customers buy your products, they will appear here.</p>
+          <div className="flex flex-col items-center justify-center h-64 text-center backdrop-blur-2xl bg-white/5 border border-white/10 rounded-[2.5rem]">
+            <svg className="w-16 h-16 text-white/20 mb-4" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10" />
+            </svg>
+            <h3 className="text-white font-serif text-2xl mb-2">No Orders Yet</h3>
+            <p className="text-blue-200 text-sm tracking-wide">When customers buy your products, they will appear here.</p>
           </div>
         ) : (
           orders.map((order) => (
             <div
               key={order._id}
-              className="backdrop-blur-xl bg-white/70 border border-yellow-200/60 rounded-3xl p-6 shadow-sm flex flex-col md:flex-row gap-6"
+              className="group relative overflow-hidden backdrop-blur-2xl bg-white/10 border border-white/20 rounded-[2.5rem] p-6 sm:p-8 shadow-2xl transition-all duration-300 hover:border-white/40 flex flex-col md:flex-row gap-8"
             >
-              <div className="flex-1 space-y-4">
-                <div className="flex justify-between items-start">
+              {/* Internal Glow */}
+              <div className="absolute -top-24 -right-24 w-48 h-48 bg-white/10 blur-[50px] rounded-full pointer-events-none group-hover:bg-white/20 transition-all duration-700" />
+
+              <div className="flex-1 space-y-6 relative z-10">
+                {/* Header */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
                   <div>
-                    <h3 className="text-stone-900 font-black text-sm">Order ID: {order._id.substring(order._id.length - 8)}</h3>
-                    <p className="text-stone-500 text-xs font-medium">Placed on {new Date(order.createdAt || Date.now()).toLocaleDateString()}</p>
+                    <h3 className="text-white font-serif text-2xl">Order #{order._id.substring(order._id.length - 8)}</h3>
+                    <p className="text-blue-200 text-[10px] uppercase tracking-[0.2em] mt-1 font-bold">Placed on {new Date(order.createdAt || Date.now()).toLocaleDateString()}</p>
                   </div>
-                  <span className={`px-3 py-1 rounded-full text-xs font-black
-                    ${order.status === "PENDING" ? "bg-amber-100 text-amber-700" :
-                      order.status === "SHIPPED" ? "bg-blue-100 text-blue-700" :
-                      order.status === "DELIVERED" ? "bg-emerald-100 text-emerald-700" :
-                      "bg-red-100 text-red-700"}`}>
+                  <span className={`px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] backdrop-blur-md border shadow-lg
+                    ${order.status === "PENDING" ? "bg-amber-500/20 text-amber-100 border-amber-500/30" :
+                      order.status === "SHIPPED" ? "bg-blue-500/20 text-blue-100 border-blue-500/30" :
+                      order.status === "DELIVERED" ? "bg-emerald-500/20 text-emerald-100 border-emerald-500/30" :
+                      "bg-red-500/20 text-red-100 border-red-500/30"}`}>
                     {order.status}
                   </span>
                 </div>
                 
-                <div className="grid grid-cols-2 gap-4 text-sm bg-white/50 p-4 rounded-2xl border border-stone-100">
+                {/* Details Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 p-6 bg-black/20 rounded-[2rem] border border-white/10">
                   <div>
-                    <p className="text-stone-400 font-medium text-xs">Customer Details</p>
-                    <p className="text-stone-900 font-bold">{order.user?.username || "Unknown Customer"}</p>
-                    <p className="text-stone-600">{order.phone}</p>
-                    <p className="text-stone-600 mt-1 line-clamp-2">{order.destinationAddress}</p>
+                    <p className="text-blue-200 font-bold text-[10px] uppercase tracking-widest mb-2 flex items-center gap-2">
+                      <span className="w-4 h-[1px] bg-blue-300/50 inline-block"></span>
+                      Customer Details
+                    </p>
+                    <p className="text-white font-serif text-xl">{order.user?.username || "Unknown Customer"}</p>
+                    <p className="text-blue-100 text-sm mt-1">{order.phone}</p>
+                    <p className="text-blue-200 text-xs mt-2 line-clamp-2 leading-relaxed">{order.destinationAddress}</p>
                   </div>
                   <div>
-                    <p className="text-stone-400 font-medium text-xs">Payment Info</p>
-                    <p className="text-stone-900 font-bold">{order.paymentMethod}</p>
-                    <p className={`font-bold mt-1 ${order.paymentStatus === "PAID" ? "text-emerald-600" : "text-amber-600"}`}>
+                    <p className="text-blue-200 font-bold text-[10px] uppercase tracking-widest mb-2 flex items-center gap-2">
+                      <span className="w-4 h-[1px] bg-blue-300/50 inline-block"></span>
+                      Payment Info
+                    </p>
+                    <p className="text-white font-bold text-sm tracking-wide">{order.paymentMethod}</p>
+                    <p className={`font-black text-[10px] uppercase tracking-widest mt-1 ${order.paymentStatus === "PAID" ? "text-emerald-300" : "text-amber-300"}`}>
                       {order.paymentStatus}
                     </p>
-                    <p className="text-lg font-black text-stone-900 mt-2">₹{order.totalAmount?.toLocaleString()}</p>
+                    <p className="text-3xl font-black text-white tracking-tight mt-4">₹{order.totalAmount?.toLocaleString()}</p>
                   </div>
                 </div>
 
-                <div className="space-y-3">
-                  <p className="text-stone-700 font-bold text-sm">Items Ordered:</p>
-                  {order.items?.map((item, idx) => (
-                    <div key={idx} className="flex items-center justify-between text-sm bg-white border border-stone-100 p-2.5 rounded-xl">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-stone-100 rounded-lg overflow-hidden border border-stone-200">
+                {/* Items */}
+                <div className="space-y-4 pt-2">
+                  <p className="text-blue-200 font-bold text-[10px] uppercase tracking-widest flex items-center gap-2">
+                    <span className="w-6 h-[2px] bg-blue-300/50 inline-block"></span>
+                    Items Ordered
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {order.items?.map((item, idx) => (
+                      <div key={idx} className="flex items-center gap-4 bg-white/5 border border-white/10 p-3 rounded-[1.5rem] hover:bg-white/10 transition-colors">
+                        <div className="w-16 h-16 bg-black/20 rounded-xl overflow-hidden flex-shrink-0">
                           {item.product?.images ? (
                             <img src={item.product.images} alt={item.product.name} className="w-full h-full object-cover" />
                           ) : (
-                            <div className="w-full h-full bg-stone-200" />
+                            <div className="w-full h-full flex items-center justify-center">
+                              <svg className="w-6 h-6 text-white/20" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3 20.25h18" />
+                              </svg>
+                            </div>
                           )}
                         </div>
-                        <span className="font-bold text-stone-900">{item.product?.name || "Unknown Product"}</span>
+                        <div className="flex-1 min-w-0 pr-2">
+                          <p className="font-serif text-white text-lg truncate mb-1">{item.product?.name || "Unknown Product"}</p>
+                          <div className="flex items-center gap-2">
+                            <span className="text-blue-200 text-xs">Qty</span>
+                            <span className="text-white font-black text-xs bg-white/10 px-2 py-0.5 rounded-md">{item.quantity}</span>
+                          </div>
+                        </div>
                       </div>
-                      <span className="text-stone-500 font-medium">Qty: {item.quantity}</span>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="w-full md:w-48 flex flex-col gap-2 justify-center border-t md:border-t-0 md:border-l border-stone-200 pt-4 md:pt-0 md:pl-6">
+              <div className="w-full md:w-56 flex flex-col gap-3 justify-center border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-8 relative z-10">
+                <p className="text-center md:text-left text-blue-200 font-bold text-[10px] uppercase tracking-widest hidden md:block mb-2">Actions</p>
                 {order.status === "PENDING" && (
                   <>
                     <button
                       onClick={() => updateStatus(order._id, "SHIPPED")}
-                      className="w-full py-2.5 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-600 text-sm font-bold transition-colors border border-blue-200"
+                      className="w-full py-4 rounded-2xl bg-white text-blue-900 font-bold text-[10px] uppercase tracking-widest shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] transition-all flex items-center justify-center gap-2"
                     >
-                      Mark as Shipped
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                      </svg>
+                      Ship Order
                     </button>
                     <button
                       onClick={() => updateStatus(order._id, "CANCELLED")}
-                      className="w-full py-2.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 text-sm font-bold transition-colors border border-red-200"
+                      className="w-full py-4 rounded-2xl bg-red-500/20 hover:bg-red-500 text-red-100 hover:text-white border border-red-500/30 text-[10px] font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-2"
                     >
-                      Cancel Order
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                      Cancel
                     </button>
                   </>
                 )}
@@ -163,10 +197,19 @@ function SellerOrders() {
                 {order.status === "SHIPPED" && (
                   <button
                     onClick={() => updateStatus(order._id, "DELIVERED")}
-                    className="w-full py-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-600 text-sm font-bold transition-colors border border-emerald-200"
+                    className="w-full py-4 rounded-2xl bg-emerald-500/20 hover:bg-emerald-500 text-emerald-100 hover:text-white border border-emerald-500/30 text-[10px] font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-2"
                   >
-                    Mark as Delivered
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                    Mark Delivered
                   </button>
+                )}
+                
+                {(order.status === "DELIVERED" || order.status === "CANCELLED") && (
+                  <div className="py-4 text-center">
+                    <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest">No actions available</p>
+                  </div>
                 )}
               </div>
             </div>

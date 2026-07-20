@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../auth/hooks/useAuth";
-import { useCart } from "../home.context";
+import { useCart } from "../hooks/useCart";
 
 function Navbar() {
   const { user } = useAuth();

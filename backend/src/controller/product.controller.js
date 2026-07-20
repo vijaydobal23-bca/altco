@@ -1,4 +1,5 @@
 import Product from "../model/product.model.js";
+import Cart from "../model/cart.model.js";
 import { uploadFileToImagekit } from "../services/imagekit.service.js";
 
 // ─── POST /api/products/create ────────────────────────────────────────────────
@@ -83,6 +84,13 @@ export const deleteProduct = async (req, res) => {
         .status(404)
         .json({ success: false, message: "Product not found." });
     }
+
+    // Also remove this product from all user carts
+    await Cart.updateMany(
+      {},
+      { $pull: { items: { product: req.params.id } } }
+    );
+
     return res
       .status(200)
       .json({ success: true, message: "Product deleted successfully." });

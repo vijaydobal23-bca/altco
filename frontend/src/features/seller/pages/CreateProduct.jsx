@@ -59,24 +59,23 @@ function CreateProduct() {
 
     const result = await handleCreate(fd);
     if (result.success) {
-      navigate("/seller/products");
+      navigate("/seller"); // Navigate directly back to the dashboard now
     }
   }
 
   return (
-    <div className="min-h-screen bg-white p-6 relative overflow-hidden">
-      {/* Glow blobs */}
+    <div className="min-h-screen bg-blue-500 text-white p-6 relative overflow-hidden pb-20">
+      {/* Decorative Glows */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-yellow-200 rounded-full opacity-30 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-yellow-100 rounded-full opacity-40 blur-3xl" />
+        <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[50%] bg-blue-400/40 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-20%] left-[-10%] w-[50%] h-[50%] bg-blue-300/20 rounded-full blur-[120px]" />
       </div>
 
       {/* Header */}
-      <div className="relative max-w-2xl mx-auto mb-6">
+      <div className="relative max-w-2xl mx-auto mb-8 pt-6">
         <button
-          id="back-btn"
           onClick={() => navigate("/seller")}
-          className="flex items-center gap-2 text-stone-600 hover:text-stone-900 font-bold text-sm transition-colors"
+          className="flex items-center gap-2 text-blue-200 hover:text-white font-bold text-xs uppercase tracking-widest transition-colors bg-white/5 hover:bg-white/10 px-5 py-2.5 rounded-full border border-white/10 w-fit"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -86,38 +85,39 @@ function CreateProduct() {
       </div>
 
       <div className="relative max-w-2xl mx-auto">
-        <div className="backdrop-blur-xl bg-white/70 border border-yellow-200/60 rounded-3xl shadow-xl p-8">
+        <div className="backdrop-blur-2xl bg-white/10 border border-white/20 rounded-[2.5rem] shadow-2xl p-8 sm:p-10">
+          
           {/* Title */}
-          <div className="mb-8">
-            <h1 className="text-2xl font-black text-stone-900 tracking-tight">Add New Product</h1>
-            <p className="text-sm text-stone-500 font-medium mt-1">Fill in the details to list your product</p>
+          <div className="mb-10 text-center sm:text-left">
+            <h1 className="text-3xl sm:text-4xl font-serif text-white tracking-tight mb-2">Add New Product</h1>
+            <p className="text-sm text-blue-200 font-medium tracking-wide">Fill in the details below to list a new item on the store.</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-6">
             {/* Image Upload */}
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-stone-700">Product Image</label>
+              <label className="block text-[10px] font-bold text-blue-200 uppercase tracking-widest mb-1">Product Image</label>
               <div
-                id="image-upload-area"
                 onClick={() => fileInputRef.current?.click()}
-                className={`relative flex flex-col items-center justify-center h-48 rounded-2xl border-2 border-dashed cursor-pointer transition-all duration-200 ${
-                  preview ? "border-amber-400 bg-white" : "border-yellow-300 bg-white/50 hover:border-amber-400 hover:bg-white"
+                className={`relative flex flex-col items-center justify-center h-48 rounded-3xl border-2 border-dashed cursor-pointer transition-all duration-300 ${
+                  preview ? "border-white/40 bg-black/20" : "border-white/20 bg-white/5 hover:border-white/40 hover:bg-white/10"
                 }`}
               >
                 {preview ? (
-                  <img src={preview} alt="Preview" className="h-full w-full object-contain rounded-xl p-2" />
+                  <img src={preview} alt="Preview" className="h-full w-full object-contain rounded-2xl p-2" />
                 ) : (
                   <>
-                    <svg className="w-10 h-10 text-amber-400 mb-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3 20.25h18M3.75 4.5h16.5A1.5 1.5 0 0121.75 6v12a1.5 1.5 0 01-1.5 1.5H3.75A1.5 1.5 0 012.25 18V6a1.5 1.5 0 011.5-1.5z" />
-                    </svg>
-                    <p className="text-sm font-bold text-stone-600">Click to upload image</p>
-                    <p className="text-xs font-medium text-stone-400 mt-1">PNG, JPG up to 5MB</p>
+                    <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mb-4">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3 20.25h18M3.75 4.5h16.5A1.5 1.5 0 0121.75 6v12a1.5 1.5 0 01-1.5 1.5H3.75A1.5 1.5 0 012.25 18V6a1.5 1.5 0 011.5-1.5z" />
+                      </svg>
+                    </div>
+                    <p className="text-sm font-bold text-white tracking-wide">Click to upload image</p>
+                    <p className="text-[10px] uppercase tracking-widest text-blue-200 mt-2">PNG, JPG up to 5MB</p>
                   </>
                 )}
               </div>
               <input
-                id="image-file-input"
                 ref={fileInputRef}
                 type="file"
                 accept="image/*"
@@ -128,7 +128,7 @@ function CreateProduct() {
 
             {/* Product Name */}
             <div className="space-y-1.5">
-              <label htmlFor="product-name" className="block text-sm font-bold text-stone-700">Product Name</label>
+              <label htmlFor="product-name" className="block text-[10px] font-bold text-blue-200 uppercase tracking-widest">Product Name</label>
               <input
                 id="product-name"
                 type="text"
@@ -136,13 +136,13 @@ function CreateProduct() {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="e.g. Wireless Headphones"
-                className="w-full px-4 py-3 rounded-xl bg-white/80 border border-yellow-200/80 text-stone-900 placeholder-stone-400 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400/60 transition shadow-sm"
+                className="w-full px-5 py-4 rounded-2xl bg-black/20 border border-white/10 text-white placeholder-blue-300/50 text-sm focus:outline-none focus:ring-2 focus:ring-white/30 transition shadow-sm"
               />
             </div>
 
             {/* Description */}
             <div className="space-y-1.5">
-              <label htmlFor="product-description" className="block text-sm font-bold text-stone-700">Description</label>
+              <label htmlFor="product-description" className="block text-[10px] font-bold text-blue-200 uppercase tracking-widest">Description</label>
               <textarea
                 id="product-description"
                 name="description"
@@ -150,14 +150,14 @@ function CreateProduct() {
                 onChange={handleChange}
                 placeholder="Describe your product..."
                 rows={3}
-                className="w-full px-4 py-3 rounded-xl bg-white/80 border border-yellow-200/80 text-stone-900 placeholder-stone-400 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400/60 transition resize-none shadow-sm"
+                className="w-full px-5 py-4 rounded-2xl bg-black/20 border border-white/10 text-white placeholder-blue-300/50 text-sm focus:outline-none focus:ring-2 focus:ring-white/30 transition resize-none shadow-sm"
               />
             </div>
 
             {/* Price & Stock */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-5">
               <div className="space-y-1.5">
-                <label htmlFor="product-price" className="block text-sm font-bold text-stone-700">Price (₹)</label>
+                <label htmlFor="product-price" className="block text-[10px] font-bold text-blue-200 uppercase tracking-widest">Price (₹)</label>
                 <input
                   id="product-price"
                   type="number"
@@ -166,11 +166,11 @@ function CreateProduct() {
                   onChange={handleChange}
                   placeholder="0.00"
                   min="0"
-                  className="w-full px-4 py-3 rounded-xl bg-white/80 border border-yellow-200/80 text-stone-900 placeholder-stone-400 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400/60 transition shadow-sm"
+                  className="w-full px-5 py-4 rounded-2xl bg-black/20 border border-white/10 text-white placeholder-blue-300/50 text-sm focus:outline-none focus:ring-2 focus:ring-white/30 transition shadow-sm"
                 />
               </div>
               <div className="space-y-1.5">
-                <label htmlFor="product-stock" className="block text-sm font-bold text-stone-700">Stock</label>
+                <label htmlFor="product-stock" className="block text-[10px] font-bold text-blue-200 uppercase tracking-widest">Stock</label>
                 <input
                   id="product-stock"
                   type="number"
@@ -179,29 +179,29 @@ function CreateProduct() {
                   onChange={handleChange}
                   placeholder="0"
                   min="0"
-                  className="w-full px-4 py-3 rounded-xl bg-white/80 border border-yellow-200/80 text-stone-900 placeholder-stone-400 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400/60 transition shadow-sm"
+                  className="w-full px-5 py-4 rounded-2xl bg-black/20 border border-white/10 text-white placeholder-blue-300/50 text-sm focus:outline-none focus:ring-2 focus:ring-white/30 transition shadow-sm"
                 />
               </div>
             </div>
 
             {/* Category & Quantity */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div className="space-y-1.5">
-                <label htmlFor="product-category" className="block text-sm font-bold text-stone-700">Category</label>
+                <label htmlFor="product-category" className="block text-[10px] font-bold text-blue-200 uppercase tracking-widest">Category</label>
                 <select
                   id="product-category"
                   name="category"
                   value={formData.category}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-xl bg-white/80 border border-yellow-200/80 text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400/60 transition shadow-sm"
+                  className="w-full px-5 py-4 rounded-2xl bg-black/20 border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-white/30 transition shadow-sm appearance-none"
                 >
-                  <option value="protein">Protein</option>
-                  <option value="oats">Oats</option>
-                  <option value="drinks">Drinks</option>
+                  <option value="protein" className="text-black">Protein</option>
+                  <option value="oats" className="text-black">Oats</option>
+                  <option value="drinks" className="text-black">Drinks</option>
                 </select>
               </div>
               <div className="space-y-1.5">
-                <label className="block text-sm font-bold text-stone-700">Quantity</label>
+                <label className="block text-[10px] font-bold text-blue-200 uppercase tracking-widest">Quantity</label>
                 <div className="flex gap-2">
                   <input
                     id="product-qty-value"
@@ -211,19 +211,19 @@ function CreateProduct() {
                     onChange={handleChange}
                     placeholder="e.g. 500"
                     min="0"
-                    className="w-2/3 px-4 py-3 rounded-xl bg-white/80 border border-yellow-200/80 text-stone-900 placeholder-stone-400 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400/60 transition shadow-sm"
+                    className="w-2/3 px-5 py-4 rounded-2xl bg-black/20 border border-white/10 text-white placeholder-blue-300/50 text-sm focus:outline-none focus:ring-2 focus:ring-white/30 transition shadow-sm"
                   />
                   <select
                     id="product-qty-unit"
                     name="qtyUnit"
                     value={formData.qtyUnit}
                     onChange={handleChange}
-                    className="w-1/3 px-2 py-3 rounded-xl bg-white/80 border border-yellow-200/80 text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400/60 transition shadow-sm"
+                    className="w-1/3 px-3 py-4 rounded-2xl bg-black/20 border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-white/30 transition shadow-sm appearance-none text-center"
                   >
-                    <option value="kg">kg</option>
-                    <option value="gram">gram</option>
-                    <option value="liter">liter</option>
-                    <option value="ml">ml</option>
+                    <option value="kg" className="text-black">kg</option>
+                    <option value="gram" className="text-black">g</option>
+                    <option value="liter" className="text-black">L</option>
+                    <option value="ml" className="text-black">ml</option>
                   </select>
                 </div>
               </div>
@@ -231,21 +231,20 @@ function CreateProduct() {
 
             {/* Submit */}
             <button
-              id="create-product-btn"
               type="submit"
               disabled={loading}
-              className="w-full py-3 mt-2 rounded-xl bg-gradient-to-r from-yellow-300 to-amber-400 hover:from-yellow-200 hover:to-amber-300 text-stone-900 font-bold text-sm tracking-wide shadow-lg shadow-yellow-400/20 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full py-4 mt-6 rounded-full bg-white text-blue-900 font-bold text-xs uppercase tracking-widest shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
             >
               {loading ? (
                 <>
-                  <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
                   </svg>
                   Uploading…
                 </>
               ) : (
-                "Create Product"
+                "Publish Product"
               )}
             </button>
           </form>

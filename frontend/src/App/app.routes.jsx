@@ -3,30 +3,55 @@ import Login from "../features/auth/pages/Login";
 import Register from "../features/auth/pages/Register";
 import SellerDashboard from "../features/seller/pages/SellerDashboard";
 import CreateProduct from "../features/seller/pages/CreateProduct";
-import ProductList from "../features/seller/pages/ProductList";
 import ProtectedRoute from "../features/seller/components/ProtectedRoute";
+import AuthRoute from "../features/auth/components/AuthRoute";
 import HomePage from "../features/Home/pages/HomePage";
 import StorePage from "../features/Home/pages/StorePage";
 import CartPage from "../features/Home/pages/CartPage";
 import CheckoutPage from "../features/Home/pages/CheckoutPage";
+import OrderHistoryPage from "../features/Home/pages/OrderHistoryPage";
 import SellerOrders from "../features/seller/pages/SellerOrders";
 
 const routes = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />,
+    element: (
+      <AuthRoute>
+        <HomePage />
+      </AuthRoute>
+    ),
   },
   {
     path: "/store",
-    element: <StorePage />,
+    element: (
+      <AuthRoute>
+        <StorePage />
+      </AuthRoute>
+    ),
   },
   {
     path: "/cart",
-    element: <CartPage />,
+    element: (
+      <AuthRoute>
+        <CartPage />
+      </AuthRoute>
+    ),
   },
   {
     path: "/checkout",
-    element: <CheckoutPage />,
+    element: (
+      <AuthRoute>
+        <CheckoutPage />
+      </AuthRoute>
+    ),
+  },
+  {
+    path: "/orders",
+    element: (
+      <AuthRoute>
+        <OrderHistoryPage />
+      </AuthRoute>
+    ),
   },
   {
     path: "/login",
@@ -55,14 +80,6 @@ const routes = createBrowserRouter([
     ),
   },
   {
-    path: "/seller/products",
-    element: (
-      <ProtectedRoute>
-        <ProductList />
-      </ProtectedRoute>
-    ),
-  },
-  {
     path: "/seller/orders",
     element: (
       <ProtectedRoute>
@@ -72,4 +89,4 @@ const routes = createBrowserRouter([
   },
 ]);
 
-export default routes;
+export default routes;
