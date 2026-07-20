@@ -5,7 +5,7 @@ import { uploadFileToImagekit } from "../services/imagekit.service.js";
 export const createProduct = async (req, res) => {
   try {
     const seller = req.user;
-    const { name, description, price, stock } = req.body;
+    const { name, description, price, stock,category,qty } = req.body;
 
     if (!name || !description || !price || !stock) {
       return res
@@ -31,6 +31,8 @@ export const createProduct = async (req, res) => {
       stock: Number(stock),
       images: imageUrl,
       seller: seller.id,
+      category,
+      qty
     });
 
     return res
@@ -98,13 +100,13 @@ export const deleteProduct = async (req, res) => {
 // ─── PUT /api/products/:id ────────────────────────────────────────────────────
 export const updateProduct = async (req, res) => {
   try {
-    const { name, description, price, stock } = req.body;
+    const { name, description, price, stock, category, qty } = req.body;
     const productId = req.params.id;
 
     const product = await Product.findOneAndUpdate(
       { _id: productId, seller: req.user.id },
       {
-        $set: { name, description, price: Number(price), stock: Number(stock) },
+        $set: { name, description, price: Number(price), stock: Number(stock), category, qty },
       },
       { new: true, runValidators: true },
     );

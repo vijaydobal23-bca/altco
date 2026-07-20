@@ -1,9 +1,117 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useCart } from "../home.context";
+import axios from "axios";
+import toast from "react-hot-toast";
+
+const api = axios.create({
+  baseURL: "http://localhost:3000/api",
+  withCredentials: true,
+});
 
 function CartPage() {
-  const { cartItems, removeFromCart, updateQty, totalItems, totalPrice, clearCart } = useCart();
+  const { syncCart, clearCart } = useCart();
+  const navigate = useNavigate();
+  const [cartItems, setCartItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [actionLoading, setActionLoading] = useState(false);
+
+  useEffect(() => {
+    fetchCart();
+  }, []);
+
+  async function fetchCart() {
+    try {
+      setLoading(true);
+      const res = await api.get("/cart");
+      if (res.data.success) {
+        const items = (res.data.cart?.items || []).map((item) => ({
+          cartItemId: item._id,
+          _id: item.product?._id,
+          name: item.product?.name,
+          description: item.product?.description,
+          price: item.product?.price,
+          images: item.product?.images,
+          stock: item.product?.stock,
+          seller: item.product?.seller,
+          qty: item.quantity,
+        }));
+        setCartItems(items);
+        syncCart(items);
+      }
+    } catch (err) {
+      if (err.response?.status === 401) {
+        navigate("/login");
+      } else {
+        toast.error("Failed to load cart.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleRemove(productId) {
+    setActionLoading(true);
+    try {
+      await api.delete(`/cart/remove/${productId}`);
+      const updated = cartItems.filter((i) => i._id !== productId);
+      setCartItems(updated);
+      syncCart(updated);
+      toast.success("Item removed from cart.");
+    } catch {
+      toast.error("Failed to remove item.");
+    } finally {
+      setActionLoading(false);
+    }
+  }
+
+  async function handleUpdateQty(productId, newQty) {
+    setActionLoading(true);
+    try {
+      await api.put(`/cart/update/${productId}`, { quantity: newQty });
+      const updated = cartItems
+        .map((i) => (i._id === productId ? { ...i, qty: newQty } : i))
+        .filter((i) => i.qty > 0);
+      setCartItems(updated);
+      syncCart(updated);
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Failed to update qty.");
+    } finally {
+      setActionLoading(false);
+    }
+  }
+
+  async function handleClearCart() {
+    setActionLoading(true);
+    try {
+      await api.delete("/cart/clear");
+      setCartItems([]);
+      clearCart();
+      toast.success("Cart cleared.");
+    } catch {
+      toast.error("Failed to clear cart.");
+    } finally {
+      setActionLoading(false);
+    }
+  }
+
+  const totalItems = cartItems.reduce((sum, i) => sum + i.qty, 0);
+  const totalPrice = cartItems.reduce((sum, i) => sum + i.price * i.qty, 0);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white">
+        <Navbar />
+        <div className="flex items-center justify-center h-[70vh]">
+          <svg className="w-8 h-8 animate-spin text-amber-400" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+          </svg>
+        </div>
+      </div>
+    );
+  }
 
   if (cartItems.length === 0) {
     return (
@@ -17,10 +125,7 @@ function CartPage() {
           </div>
           <h2 className="text-2xl font-black text-stone-900 mb-2">Your cart is empty</h2>
           <p className="text-stone-500 font-medium mb-8">Looks like you haven't added anything yet.</p>
-          <Link
-            to="/store"
-            className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-yellow-300 to-amber-400 hover:from-yellow-200 hover:to-amber-300 text-stone-900 font-black transition-all shadow-md shadow-yellow-400/20"
-          >
+          <Link to="/store" className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-yellow-300 to-amber-400 hover:from-yellow-200 hover:to-amber-300 text-stone-900 font-black transition-all shadow-md shadow-yellow-400/20">
             Browse Store
           </Link>
         </div>
@@ -39,8 +144,9 @@ function CartPage() {
           </div>
           <button
             id="clear-cart-btn"
-            onClick={clearCart}
-            className="text-sm font-bold text-red-500 hover:text-red-400 transition-colors"
+            onClick={handleClearCart}
+            disabled={actionLoading}
+            className="text-sm font-bold text-red-500 hover:text-red-400 transition-colors disabled:opacity-50"
           >
             Clear all
           </button>
@@ -76,16 +182,18 @@ function CartPage() {
                 <div className="flex items-center gap-2 flex-shrink-0">
                   <button
                     id={`qty-dec-${item._id}`}
-                    onClick={() => updateQty(item._id, item.qty - 1)}
-                    className="w-8 h-8 rounded-lg border border-yellow-200 flex items-center justify-center text-stone-700 hover:bg-yellow-50 font-black transition-all"
+                    onClick={() => handleUpdateQty(item._id, item.qty - 1)}
+                    disabled={actionLoading}
+                    className="w-8 h-8 rounded-lg border border-yellow-200 flex items-center justify-center text-stone-700 hover:bg-yellow-50 font-black transition-all disabled:opacity-50"
                   >
                     −
                   </button>
                   <span className="w-8 text-center font-black text-stone-900 text-sm">{item.qty}</span>
                   <button
                     id={`qty-inc-${item._id}`}
-                    onClick={() => updateQty(item._id, item.qty + 1)}
-                    className="w-8 h-8 rounded-lg border border-yellow-200 flex items-center justify-center text-stone-700 hover:bg-yellow-50 font-black transition-all"
+                    onClick={() => handleUpdateQty(item._id, item.qty + 1)}
+                    disabled={actionLoading}
+                    className="w-8 h-8 rounded-lg border border-yellow-200 flex items-center justify-center text-stone-700 hover:bg-yellow-50 font-black transition-all disabled:opacity-50"
                   >
                     +
                   </button>
@@ -97,8 +205,9 @@ function CartPage() {
 
                 <button
                   id={`remove-${item._id}`}
-                  onClick={() => removeFromCart(item._id)}
-                  className="text-stone-400 hover:text-red-500 transition-colors flex-shrink-0"
+                  onClick={() => handleRemove(item._id)}
+                  disabled={actionLoading}
+                  className="text-stone-400 hover:text-red-500 transition-colors flex-shrink-0 disabled:opacity-50"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -129,12 +238,13 @@ function CartPage() {
                 </div>
               </div>
 
-              <button
+              <Link
+                to="/checkout"
                 id="checkout-btn"
-                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-yellow-300 to-amber-400 hover:from-yellow-200 hover:to-amber-300 text-stone-900 font-black text-sm transition-all shadow-md shadow-yellow-400/20"
+                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-yellow-300 to-amber-400 hover:from-yellow-200 hover:to-amber-300 text-stone-900 font-black text-sm transition-all shadow-md shadow-yellow-400/20 block text-center"
               >
                 Proceed to Checkout →
-              </button>
+              </Link>
               <Link
                 to="/store"
                 className="block text-center mt-4 text-sm font-bold text-stone-500 hover:text-amber-500 transition-colors"

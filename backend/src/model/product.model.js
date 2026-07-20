@@ -26,6 +26,15 @@ const productSchema = new mongoose.Schema({
     seller: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
+    },
+    category: {
+        type: String,
+        enum:["protein","oats","drinks"],
+        required: [true, "Category is required"],
+    },
+    qty:{
+      type:String,
+      required:true
     }
   
 })

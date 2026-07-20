@@ -3,11 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { useProduct } from "../hooks/useProduct";
 
 function EditModal({ product, onClose, onSave, loading }) {
-  const [form, setForm] = useState({
-    name: product.name,
-    description: product.description,
-    price: product.price,
-    stock: product.stock,
+  const [form, setForm] = useState(() => {
+    const qtyParts = (product.qty || "").split(" ");
+    return {
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      stock: product.stock,
+      category: product.category || "protein",
+      qtyValue: qtyParts[0] || "",
+      qtyUnit: qtyParts[1] || "kg",
+    };
   });
 
   function handleChange(e) {
@@ -16,7 +22,10 @@ function EditModal({ product, onClose, onSave, loading }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    onSave(product._id, form);
+    const data = { ...form, qty: `${form.qtyValue} ${form.qtyUnit}` };
+    delete data.qtyValue;
+    delete data.qtyUnit;
+    onSave(product._id, data);
   }
 
   return (
@@ -70,6 +79,48 @@ function EditModal({ product, onClose, onSave, loading }) {
                 />
               </div>
             ))}
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="space-y-1">
+              <label className="block text-xs font-bold text-stone-700 capitalize">Category</label>
+              <select
+                id="edit-category"
+                name="category"
+                value={form.category}
+                onChange={handleChange}
+                className="w-full px-3 py-2.5 rounded-xl bg-white/80 border border-yellow-200/80 text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400/60 transition shadow-sm"
+              >
+                <option value="protein">Protein</option>
+                <option value="oats">Oats</option>
+                <option value="drinks">Drinks</option>
+              </select>
+            </div>
+            <div className="space-y-1">
+              <label className="block text-xs font-bold text-stone-700 capitalize">Quantity</label>
+              <div className="flex gap-2">
+                <input
+                  id="edit-qty-value"
+                  type="number"
+                  name="qtyValue"
+                  value={form.qtyValue}
+                  onChange={handleChange}
+                  min="0"
+                  className="w-2/3 px-3 py-2.5 rounded-xl bg-white/80 border border-yellow-200/80 text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400/60 transition shadow-sm"
+                />
+                <select
+                  id="edit-qty-unit"
+                  name="qtyUnit"
+                  value={form.qtyUnit}
+                  onChange={handleChange}
+                  className="w-1/3 px-2 py-2.5 rounded-xl bg-white/80 border border-yellow-200/80 text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400/60 transition shadow-sm"
+                >
+                  <option value="kg">kg</option>
+                  <option value="gram">gram</option>
+                  <option value="liter">liter</option>
+                  <option value="ml">ml</option>
+                </select>
+              </div>
+            </div>
           </div>
           <button
             id="save-edit-btn"

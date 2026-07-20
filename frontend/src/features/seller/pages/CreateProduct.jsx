@@ -13,6 +13,9 @@ function CreateProduct() {
     description: "",
     price: "",
     stock: "",
+    category: "protein",
+    qtyValue: "",
+    qtyUnit: "kg",
   });
   const [preview, setPreview] = useState(null);
   const [imageFile, setImageFile] = useState(null);
@@ -34,9 +37,9 @@ function CreateProduct() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const { name, description, price, stock } = formData;
+    const { name, description, price, stock, category, qtyValue, qtyUnit } = formData;
 
-    if (!name || !description || !price || !stock) {
+    if (!name || !description || !price || !stock || !category || !qtyValue) {
       toast.error("Please fill in all fields.");
       return;
     }
@@ -50,6 +53,8 @@ function CreateProduct() {
     fd.append("description", description);
     fd.append("price", price);
     fd.append("stock", stock);
+    fd.append("category", category);
+    fd.append("qty", `${qtyValue} ${qtyUnit}`);
     fd.append("image", imageFile);
 
     const result = await handleCreate(fd);
@@ -176,6 +181,51 @@ function CreateProduct() {
                   min="0"
                   className="w-full px-4 py-3 rounded-xl bg-white/80 border border-yellow-200/80 text-stone-900 placeholder-stone-400 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400/60 transition shadow-sm"
                 />
+              </div>
+            </div>
+
+            {/* Category & Quantity */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <label htmlFor="product-category" className="block text-sm font-bold text-stone-700">Category</label>
+                <select
+                  id="product-category"
+                  name="category"
+                  value={formData.category}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-xl bg-white/80 border border-yellow-200/80 text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400/60 transition shadow-sm"
+                >
+                  <option value="protein">Protein</option>
+                  <option value="oats">Oats</option>
+                  <option value="drinks">Drinks</option>
+                </select>
+              </div>
+              <div className="space-y-1.5">
+                <label className="block text-sm font-bold text-stone-700">Quantity</label>
+                <div className="flex gap-2">
+                  <input
+                    id="product-qty-value"
+                    type="number"
+                    name="qtyValue"
+                    value={formData.qtyValue}
+                    onChange={handleChange}
+                    placeholder="e.g. 500"
+                    min="0"
+                    className="w-2/3 px-4 py-3 rounded-xl bg-white/80 border border-yellow-200/80 text-stone-900 placeholder-stone-400 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400/60 transition shadow-sm"
+                  />
+                  <select
+                    id="product-qty-unit"
+                    name="qtyUnit"
+                    value={formData.qtyUnit}
+                    onChange={handleChange}
+                    className="w-1/3 px-2 py-3 rounded-xl bg-white/80 border border-yellow-200/80 text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400/60 transition shadow-sm"
+                  >
+                    <option value="kg">kg</option>
+                    <option value="gram">gram</option>
+                    <option value="liter">liter</option>
+                    <option value="ml">ml</option>
+                  </select>
+                </div>
               </div>
             </div>
 

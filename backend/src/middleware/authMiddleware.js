@@ -40,15 +40,6 @@ export const identifyUser = async (req, res, next) => {
       });
     }
 
-    if (user.role !== "buyer") {
-      return res.status(403).json({
-        success: false,
-        message: "You are not authorized to perform this action.",
-      });
-    }
-
-
-
     req.user = user; // attach user to request
     next();
   } catch (error) {

@@ -8,6 +8,8 @@ import ProtectedRoute from "../features/seller/components/ProtectedRoute";
 import HomePage from "../features/Home/pages/HomePage";
 import StorePage from "../features/Home/pages/StorePage";
 import CartPage from "../features/Home/pages/CartPage";
+import CheckoutPage from "../features/Home/pages/CheckoutPage";
+import SellerOrders from "../features/seller/pages/SellerOrders";
 
 const routes = createBrowserRouter([
   {
@@ -21,6 +23,10 @@ const routes = createBrowserRouter([
   {
     path: "/cart",
     element: <CartPage />,
+  },
+  {
+    path: "/checkout",
+    element: <CheckoutPage />,
   },
   {
     path: "/login",
@@ -53,6 +59,14 @@ const routes = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <ProductList />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/seller/orders",
+    element: (
+      <ProtectedRoute>
+        <SellerOrders />
       </ProtectedRoute>
     ),
   },
