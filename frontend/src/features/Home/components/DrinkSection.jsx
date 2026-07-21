@@ -67,7 +67,7 @@ const DrinkSection = ()=>{
         scrollTrigger:{
           trigger:".drink-section-bottom",
           start:"top 0%",
-          markers:true
+          
         }
       });
 

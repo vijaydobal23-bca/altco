@@ -22,11 +22,11 @@ const AltCoMenu = ({setToggleMenu}) => {
       .from(".alt-img img", {
         yPercent: 100,
         duration: 0.7,
-      })
+      },"combine")
       .from(".menu-link", {
         y: 100,
         stagger: -0.13,
-      });
+      },"combine");
   });
 
   const closingAnimation = contextSafe(() => {
