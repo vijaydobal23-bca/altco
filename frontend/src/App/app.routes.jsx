@@ -11,6 +11,7 @@ import CartPage from "../features/Home/pages/CartPage";
 import CheckoutPage from "../features/Home/pages/CheckoutPage";
 import OrderHistoryPage from "../features/Home/pages/OrderHistoryPage";
 import SellerOrders from "../features/seller/pages/SellerOrders";
+import AltMenu from "../features/Home/components/AltMenu";
 
 const routes = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const routes = createBrowserRouter([
         <HomePage />
       
     ),
+  },
+  {
+    path: "/alt-menu",
+    element: <AltMenu />,
   },
   {
     path: "/store",

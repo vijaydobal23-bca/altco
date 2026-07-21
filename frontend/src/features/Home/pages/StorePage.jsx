@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "./Navbar";
 import { fetchAllProducts } from "../services/home.api";
 import { useCart } from "../hooks/useCart";
 import toast from "react-hot-toast";
@@ -199,7 +199,7 @@ function StorePage() {
   else if (sort === "newest") filtered = [...filtered].reverse();
 
   return (
-    <div className="min-h-screen bg-blue-500 text-white px-5">
+    <div className="min-h-screen bg-blue-500 text-white">
       <Navbar />
 
       {/* ── Minimal Header ── */}
@@ -213,7 +213,6 @@ function StorePage() {
           </div>
 
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-
             {/* Category Filters */}
             <div className="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0 hide-scrollbar max-w-full">
               {["all", "drinks", "oats", "protein"].map((cat) => (

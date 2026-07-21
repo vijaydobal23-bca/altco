@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import Navbar from "./Navbar";
 import { useCartPage } from "../hooks/useCartPage";
 
 function CartPage() {
@@ -82,7 +82,7 @@ function CartPage() {
   }
 
   return (
-    <div className="min-h-screen bg-blue-500 text-white px-5">
+    <div className="min-h-screen bg-blue-500 text-white">
       <Navbar />
       <div className="max-w-[1200px] mx-auto py-10">
         <div className="flex items-center justify-between mb-8">

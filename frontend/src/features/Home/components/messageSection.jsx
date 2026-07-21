@@ -1,7 +1,10 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import{SplitText} from "gsap/SplitText"
+import {ScrollTrigger} from "gsap/ScrollTrigger"
+gsap.registerPlugin(ScrollTrigger,useGSAP,SplitText);
 
-gsap.registerPlugin(useGSAP);
+
 
 const Leaf = ({ color, topText, bottomText, rotation = 20 }) => (
   <svg
@@ -44,13 +47,31 @@ const FeatureItem = ({ color, topText, bottomText, rotation }) => (
 );
 
 const MessageSection = () => {
+  
 
   useGSAP(()=>{
-    
+    const splitMessage = SplitText.create(".message-section h1",{
+    type:"words",
+  });
+
+  gsap.from(splitMessage.words,{
+    y:300,
+    stagger:0.1,
+    duration:0.5,
+    overflow:"hidden",
+    ease:"power2.out",
+    scrollTrigger:{
+      trigger:".message-section",
+      start:"top 50%",
+      end:"top 0%",
+    }
+  });
+
+
   })
 
   return(
-    <section className="message-section bg-[#300514]">
+    <section className="message-section bg-[#3B0017]">
       <div className="w-full bg-[#92400e] relative">
           <div className=" slideanimation2 flex flex-row-reverse  bottom-0">
           <img src="images/cover2.svg" alt="" />
@@ -63,15 +84,15 @@ const MessageSection = () => {
 
         {/* Left Column */}
         <div className="flex flex-col justify-between py-[5%] w-[25vw] sm:w-[22vw] md:w-[20vw] lg:w-[18vw] shrink-0">
-          <FeatureItem color="#98c946" topText="100%" bottomText="Vegan" rotation={20} />
-          <FeatureItem color="#efd510" topText="Complete" bottomText="Protein" rotation={-20} />
+          <FeatureItem color="#98c946" topText="100%" bottomText="Vegan" rotation={20} className="left-1" />
+          <FeatureItem color="#efd510" topText="Complete" bottomText="Protein" rotation={-20} className="left-2"/>
         </div>
 
         {/* Center — GOOD GUT */}
         <div className="flex-1 flex justify-center items-center">
           <h1 className="text-[#a874e5] text-[20vw] sm:text-[17vw] leading-[0.85] text-center uppercase m-0 flex flex-col tracking-tighter font-medium">
-            <span>GOOD</span>
-            <span>GUT</span>
+            <span className="overflow-hidden">GOOD</span>
+            <span className="overflow-hidden">GUT</span>
           </h1>
         </div>
 
