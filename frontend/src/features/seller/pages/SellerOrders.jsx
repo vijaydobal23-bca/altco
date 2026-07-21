@@ -118,7 +118,7 @@ function SellerOrders() {
                       <span className="w-4 h-[1px] bg-blue-300/50 inline-block"></span>
                       Customer Details
                     </p>
-                    <p className="text-white font-serif text-xl">{order.user?.username || "Unknown Customer"}</p>
+                    <p className="text-white font-serif text-xl">{order.user?.name || "Unknown Customer"}</p>
                     <p className="text-blue-100 text-sm mt-1">{order.phone}</p>
                     <p className="text-blue-200 text-xs mt-2 line-clamp-2 leading-relaxed">{order.destinationAddress}</p>
                   </div>

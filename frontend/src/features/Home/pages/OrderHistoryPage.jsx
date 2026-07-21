@@ -31,7 +31,7 @@ function OrderHistoryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-blue-500 text-white px-5 pb-10">
+    <div className="min-h-screen bg-blue-500 text-white  pb-10">
       <Navbar />
 
       <div className="max-w-[1000px] mx-auto py-10">
