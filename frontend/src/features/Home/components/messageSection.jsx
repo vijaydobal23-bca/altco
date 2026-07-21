@@ -62,7 +62,7 @@ const MessageSection = () => {
     ease:"power2.out",
     scrollTrigger:{
       trigger:".message-section",
-      start:"top 50%",
+      start:"top 30%",
       end:"top 0%",
     }
   });

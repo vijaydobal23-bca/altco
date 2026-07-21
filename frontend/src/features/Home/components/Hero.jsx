@@ -1,14 +1,43 @@
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { SplitText } from "gsap/SplitText";
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin,SplitText);
 const Hero = () => {
+  useGSAP(()=>{
+    const splitHeroHeading = new SplitText(".hero-text h1", {
+      type: "lines",
+    });
+
+
+    const heroTl = gsap.timeline();
+  heroTl.from(".hero-logo img", {
+    yPercent:200,
+    duration: 1,
+    ease:"power2.out",
+    
+  }).from(splitHeroHeading.lines, {
+    yPercent:200,
+    duration: 0.75,
+    stagger:0.2,
+    rotate:10,
+    ease:"power2.out",
+    opacity:0,
+  });
+  })
+  
+
   return (
     <>
-      <section className=" bg-[#EF9AAA]">
+      <section className="hero-section-1 bg-[#EF9AAA]">
         <div className="hero-content flex md:flex-row flex-col justify-center h-[70vh] w-screen items-center ">
-          <div className="horo-logo md:w-[50%] w-full  h-full flex justify-center items-center">
+          <div className="hero-logo md:w-[50%] w-full  h-full flex justify-center items-center overflow-hidden">
             <img src="images\main-logo.svg" className="md:w-80 w-40" />
           </div>
 
           <div className="hero-text md:w-[50%] w-full flex justify-center items-center h-full md:px-10 text-center">
-            <h1 className="bold md:text-6xl text-4xl text-[#2c1a05] font-bold  uppercase ">
+            <h1 className="bold md:text-6xl text-4xl text-[#2c1a05] font-bold  uppercase overflow-hidden ">
               Traid and Smart , Made With Plants
             </h1> 
           </div>

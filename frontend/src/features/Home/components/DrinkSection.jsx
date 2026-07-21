@@ -87,7 +87,7 @@ const DrinkSection = ()=>{
     <>
     <section className="drink-section md:h-screen h-[80vh] w-screen bg-blue-400 ">
       <div className="relative h-full w-full flex justify-center items-center">
-        <h1 className="absolute z lg:text-[400px] md:text-[300px] text-[140px] text-white overflow-hidden">DRINKS</h1>
+        <h1 className="absolute z lg:text-[400px] md:text-[300px] text-[140px] font-medium text-white overflow-hidden">DRINKS</h1>
 
         <div className="drink-images flex absolute   justify-center items-center">
           <div className="drink-img-1 overflow-hidden">

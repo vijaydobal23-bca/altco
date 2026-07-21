@@ -32,13 +32,13 @@ const OatsSection = () => {
           opacity: 0,
         })
         .from(".oats-2", {
-          x: -150,
+          y: -150,
           rotate: 30,
           ease: "power2.out",
           opacity: 0,
         })
         .from(".oats-3", {
-          x: 150,
+          y: 150,
           rotate: 30,
           ease: "power2.out",
           opacity: 0,
