@@ -17,14 +17,18 @@ const routes = createBrowserRouter([
   {
     path: "/",
     element: (
-      
+      <AuthRoute>
         <HomePage />
-      
+      </AuthRoute>
     ),
   },
   {
     path: "/alt-menu",
-    element: <AltMenu />,
+    element: (
+      <AuthRoute>
+        <AltMenu />
+      </AuthRoute>
+    ),
   },
   {
     path: "/store",

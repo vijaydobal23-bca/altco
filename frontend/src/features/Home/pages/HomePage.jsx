@@ -1,6 +1,6 @@
 import { Link, Navigate } from "react-router-dom";
 import Navbar from "./Navbar";
-import { useAuth } from "../../auth/hooks/useAuth";
+
 import Hero from "../components/Hero";
 import ProductSection from "../components/ProductSection";
 import MessageSection from "../components/messageSection";
@@ -9,10 +9,11 @@ import Hero2 from "../components/Hero2";
 import DrinkSection from "../components/DrinkSection";
 import Footer from "../components/Footer";
 
+import { useAuth } from "../../auth/hooks/useAuth";
+
 function HomePage() {
   const { user } = useAuth();
-
-  // if (!user) return <Navigate to="/login" replace />;
+  
 
   return (
     <div className="min-h-screen bg-white">

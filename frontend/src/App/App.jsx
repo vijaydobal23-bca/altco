@@ -5,13 +5,18 @@ import { AuthContextProvider } from "../features/auth/auth.context";
 import { SellerContextProvider } from "../features/seller/seller.context";
 import { CartContextProvider } from "../features/Home/home.context";
 
+
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { useGSAP } from "@gsap/react";
+
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother, useGSAP);
 
 function App() {
+
+  
+
   useGSAP(() => {
     ScrollSmoother.create({
       wrapper: "#smooth-wrapper",
