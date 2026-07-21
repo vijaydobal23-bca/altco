@@ -42,9 +42,9 @@ function Register() {
     );
 
     if (result.success) {
-      toast.success("Account created! Welcome 🎉");
-      const role = result.data?.user?.role;
-      navigate(role === "seller" ? "/seller" : "/");
+      toast.success("Account created! Please check your email to verify your account.");
+      // Do not navigate automatically so they see the message
+      // navigate(role === "seller" ? "/seller" : "/");
     } else {
       toast.error(result.message);
     }

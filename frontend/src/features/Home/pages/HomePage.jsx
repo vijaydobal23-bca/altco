@@ -9,8 +9,6 @@ import Hero2 from "../components/Hero2";
 import DrinkSection from "../components/DrinkSection";
 import Footer from "../components/Footer";
 
-
-
 function HomePage() {
   const { user } = useAuth();
 
