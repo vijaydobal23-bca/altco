@@ -34,24 +34,19 @@ export const register = async (req, res) => {
     const { name, email, password, role, storeName } = req.body;
 
     if (!name || !email || !password) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: "Name, email and password are required.",
-        });
+      return res.status(400).json({
+        success: false,
+        message: "Name, email and password are required.",
+      });
     }
 
     const exists = await userModel.findOne({ email });
     if (exists) {
-      return res
-        .status(409)
-        .json({
-          success: false,
-          message: "An account with this email already exists.",
-        });
+      return res.status(409).json({
+        success: false,
+        message: "An account with this email already exists.",
+      });
     }
-
 
     const hashedPassword = await bcrypt.hash(password, 12);
 
@@ -64,19 +59,16 @@ export const register = async (req, res) => {
 
     if (role === "seller") {
       if (!storeName) {
-        return res
-          .status(400)
-          .json({
-            success: false,
-            message: "Store name is required for seller accounts.",
-          });
+        return res.status(400).json({
+          success: false,
+          message: "Store name is required for seller accounts.",
+        });
       }
       userData.sellerInfo = { storeName };
     }
 
     const user = await userModel.create(userData);
 
-    
     const emailVarificationToken = jwt.sign(
       {
         email: user.email,
@@ -86,27 +78,24 @@ export const register = async (req, res) => {
 
     await sendEmail({
       to: email,
-      subject: "Welcome to Zarvis",
+      subject: "Welcome to ALT-CO",
       text: `hi ${name} thank you for registration.`,
       html: `
         <div>
           <h1>Welcome ${name}</h1>
           <p>We are thrilled to have you here at Alt Co.</p>
           <p>please verify your email address by clicking the link:</p>
-          <a href = "https://altco-kappa.vercel.app/api/auth/verify-email?token=${emailVarificationToken}">Verify Email</a>
+          <a href = "http://localhost:3000/api/auth/verify-email?token=${emailVarificationToken}">Verify Email</a>
           <p>Best regards<br>The Alt Co team </p>
         </div>
     `,
     });
 
-    return res
-      .status(201)
-      .json({
-        success: true,
-        message: "Account created successfully.",
-        user: safeUser(user),
-      });
-
+    return res.status(201).json({
+      success: true,
+      message: "Account created successfully.",
+      user: safeUser(user),
+    });
   } catch (error) {
     console.error("Register error:", error);
     return res
@@ -115,8 +104,7 @@ export const register = async (req, res) => {
   }
 };
 
-
-export const verifyUser = async(req ,res)=>{
+export const verifyUser = async (req, res) => {
   try {
     const { token } = req.query;
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -124,7 +112,7 @@ export const verifyUser = async(req ,res)=>{
       email: decoded.email,
     });
 
-    if (!user) { 
+    if (!user) {
       return res.status(400).json({
         message: "Invalid token",
         sucess: false,
@@ -133,11 +121,11 @@ export const verifyUser = async(req ,res)=>{
     }
 
     const userAlreadyVerified = user.isVerified;
-    if(userAlreadyVerified){
+    if (userAlreadyVerified) {
       return res.status(400).json({
-        message:"User already verified Please go to login",
-        sucess:false,
-        err:"User already verified.Please login"
+        message: "User already verified Please go to login",
+        sucess: false,
+        err: "User already verified.Please login",
       });
     }
 
@@ -155,7 +143,7 @@ export const verifyUser = async(req ,res)=>{
       err: error.message,
     });
   }
-}
+};
 
 // ─── POST /api/auth/login ─────────────────────────────────────────────────────
 export const login = async (req, res) => {
@@ -176,11 +164,11 @@ export const login = async (req, res) => {
     }
 
     const isVerified = user.isVerified;
-    if(!isVerified){
+    if (!isVerified) {
       return res.status(400).json({
-        message:"Your account is not verified. Please check your email.",
-        success:false
-      })
+        message: "Your account is not verified. Please check your email.",
+        success: false,
+      });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
@@ -193,14 +181,12 @@ export const login = async (req, res) => {
     const token = signToken(user);
     setCookie(res, token);
 
-    return res
-      .status(200)
-      .json({
-        success: true,
-        message: "Logged in successfully.",
-        user: safeUser(user),
-        token,
-      });
+    return res.status(200).json({
+      success: true,
+      message: "Logged in successfully.",
+      user: safeUser(user),
+      token,
+    });
   } catch (error) {
     console.error("Login error:", error);
     return res

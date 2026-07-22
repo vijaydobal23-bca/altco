@@ -9,10 +9,12 @@ import cartRoutes from "./routes/cart.routes.js";
 const app = express();
 
 // ─── Core Middleware ──────────────────────────────────────────────────────────
-app.use(cors({
-  origin: ["https://altco-kappa.vercel.app", "http://localhost:5174"], // Vite dev server
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: ["https://altco-kappa.vercel.app", "http://localhost:5173"], // Vite dev server
+    credentials: true,
+  }),
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
