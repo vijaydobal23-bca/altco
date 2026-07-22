@@ -2,9 +2,11 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { useAuth } from "../../auth/hooks/useAuth";
 
 const AltCoMenu = ({setToggleMenu}) => {
   const navigate = useNavigate();
+  const { user, handleLogout } = useAuth();
   const menuItems = [
     { name: "HOME", path: "/" },
     { name: "STORE", path: "/store" },
@@ -56,14 +58,19 @@ const AltCoMenu = ({setToggleMenu}) => {
       <div className="alt-menu relative flex min-h-screen w-full flex-col overflow-hidden bg-[#FFDE00] text-[#360215]  selection:bg-[#360215] selection:text-[#FFDE00]">
       {/* Top Right Controls */}
       <div className="absolute right-8 top-8 z-10 flex items-center gap-6 md:right-12 md:top-10">
-        {/* Shopping Bag Icon */}
-        <Link
-          to="/cart"
-          aria-label="Cart"
-          className="relative h-5 w-4 cursor-pointer rounded-b rounded-t-sm bg-[#360215] transition-opacity hover:opacity-80"
-        >
-          <span className="absolute -top-[6px] left-[3px] h-2 w-2 rounded-full border-2 border-[#360215] bg-transparent"></span>
-        </Link>
+        {/* Logout Button */}
+        {user && (
+          <button
+            onClick={() => {
+              handleLogout();
+              closingAnimation();
+            }}
+            aria-label="Logout"
+            className="text-[#360215] font-bold text-lg uppercase tracking-wide transition-opacity hover:opacity-80 cursor-pointer"
+          >
+            Logout
+          </button>
+        )}
 
         {/* Starburst Close Button */}
         <button

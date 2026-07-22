@@ -39,7 +39,7 @@ const ProductSection = () => {
   };
 
   useGSAP(()=>{
-    // Fix iOS Safari & mobile scroll interference
+  
     ScrollTrigger.normalizeScroll(true);
 
     const tl1 = gsap.timeline({
