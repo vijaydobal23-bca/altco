@@ -10,7 +10,7 @@ const app = express();
 
 // ─── Core Middleware ──────────────────────────────────────────────────────────
 app.use(cors({
-  origin: ["http://localhost:5173", "http://localhost:5174"], // Vite dev server
+  origin: ["https://altco-kappa.vercel.app", "http://localhost:5174"], // Vite dev server
   credentials: true,
 }));
 app.use(express.json());
