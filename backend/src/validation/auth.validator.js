@@ -9,7 +9,7 @@ const validate = (req, res, next) => {
 };
 
 export const validateRegister = [
-  check("name")
+  check("name") 
     .trim()
     .notEmpty()
     .withMessage("Name is required."),
