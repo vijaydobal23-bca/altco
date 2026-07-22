@@ -76,20 +76,20 @@ export const register = async (req, res) => {
       process.env.JWT_SECRET,
     );
 
-    // await sendEmail({
-    //   to: email,
-    //   subject: "Welcome to ALT-CO",
-    //   text: `hi ${name} thank you for registration.`,
-    //   html: `
-    //     <div>
-    //       <h1>Welcome ${name}</h1>
-    //       <p>We are thrilled to have you here at Alt Co.</p>
-    //       <p>please verify your email address by clicking the link:</p>
-    //       <a href = "https://altco-1.onrender.com/api/auth/verify-email?token=${emailVarificationToken}">Verify Email</a>
-    //       <p>Best regards<br>The Alt Co team </p>
-    //     </div>
-    // `,
-    // });
+    await sendEmail({
+      to: email,
+      subject: "Welcome to ALT-CO",
+      text: `hi ${name} thank you for registration.`,
+      html: `
+        <div>
+          <h1>Welcome ${name}</h1>
+          <p>We are thrilled to have you here at Alt Co.</p>
+          <p>please verify your email address by clicking the link:</p>
+          <a href = "https://altco-1.onrender.com/api/auth/verify-email?token=${emailVarificationToken}">Verify Email</a>
+          <p>Best regards<br>The Alt Co team </p>
+        </div>
+    `,
+    });
 
     return res.status(201).json({
       success: true,
