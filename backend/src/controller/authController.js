@@ -69,7 +69,7 @@ export const register = async (req, res) => {
 
     const user = await userModel.create(userData);
 
-    const emailVarificationToken = await jwt.sign(
+    const emailVarificationToken =  jwt.sign(
       {
         email: user.email,
       },

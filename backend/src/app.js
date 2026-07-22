@@ -5,8 +5,10 @@ import authRoutes from "./routes/auth.routes.js";
 import productRoutes from "./routes/product.routes.js";
 import orderRoutes from "./routes/order.routes.js";
 import cartRoutes from "./routes/cart.routes.js";
+import morgan from "morgan";
 
 const app = express();
+app.use(morgan("dev"));
 
 // ─── Core Middleware ──────────────────────────────────────────────────────────
 app.use(
