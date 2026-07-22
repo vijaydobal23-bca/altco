@@ -4,7 +4,7 @@ import axios from "axios";
 import Navbar from "./Navbar";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: "https://altco-1.onrender.com/api",
   withCredentials: true,
 });
 
