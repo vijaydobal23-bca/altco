@@ -2,8 +2,8 @@ import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
-  port: 443,
-  secure: true,
+  port: 587,
+  secure: false,
   auth: {
     user: process.env.GOOGLE_USER,
     pass: process.env.GMAIL_APP_PASS,
@@ -12,10 +12,10 @@ const transporter = nodemailer.createTransport({
   debug: true,
 });
 
-transporter 
+transporter
   .verify()
   .then(() => {
-    console.log("Transporter is ready"); 
+    console.log("Transporter is ready");
   })
   .catch((err) => {
     console.log("Email transporter varification failed", err);
