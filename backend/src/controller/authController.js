@@ -69,7 +69,7 @@ export const register = async (req, res) => {
 
     const user = await userModel.create(userData);
 
-    const emailVarificationToken = jwt.sign(
+    const emailVarificationToken = await jwt.sign(
       {
         email: user.email,
       },
@@ -100,7 +100,7 @@ export const register = async (req, res) => {
     console.error("Register error:", error);
     return res
       .status(500)
-      .json({ success: false, message: "Internal server error." });
+      .json({ success: false, message: "Internal server error.", error: error.message });
   }
 };
 
