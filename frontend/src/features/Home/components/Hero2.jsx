@@ -21,7 +21,7 @@ const Hero2 = () => {
 
         
       </section> 
-      <div className="bg-[#3B0017] text-white md:px-40 px-5  h-40 flex justify-center "><p className="text-pink-300 md:text-3xl  text-8 text-center text-bold"> Discover the delicious power of AltCo! Savor our Natural Drinks in Chocolatey Delight, Vanilla Dream, Berry Bliss, and Tropical Twist. Pair with our creamy Oat Milk, smooth Almond Milk, and signature Alt Milk. Embrace health and taste with AltCo!</p>
+      <div className="bg-[#3B0017] text-white md:px-40 px-5  h-40 flex justify-center "><p className="text-pink-300 md:text-2xl  text-xl text-center text-bold"> Discover the delicious power of AltCo! Savor our Natural Drinks in Chocolatey Delight, Vanilla Dream, Berry Bliss, and Tropical Twist. Pair with our creamy Oat Milk, smooth Almond Milk, and signature Alt Milk. Embrace health and taste with AltCo!</p>
       </div>
 
 

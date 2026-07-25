@@ -1,13 +1,13 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://altco-1.onrender.com",
+  baseURL: "http://localhost:3000",
   withCredentials: true, // Send cookies with every request
 });
 
 export async function register(name, email, password, role, storeName) {
   const response = await api.post("/api/auth/register", {
-    name,
+    name,                           
     email,
     password,
     role,

@@ -4,7 +4,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const api = axios.create({
-  baseURL: "https://altco-1.onrender.com/api",
+  baseURL: "http://localhost:3000/api",
   withCredentials: true,
 });
 
