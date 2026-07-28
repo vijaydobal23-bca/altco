@@ -16,7 +16,7 @@ const ProductSection = () => {
     name:"CLASSIC",
     img:"images/protine-2.webp",
     x:50,
-    y:50,
+    y:-50,
     color:"blue-500"
   },{
     name:"VANILA",
