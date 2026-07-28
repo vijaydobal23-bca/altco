@@ -100,6 +100,28 @@ const DrinkSection = () => {
     // Only run drinkTl2 on desktop (≥1024px) — skip on mobile & tablet
     const mm = gsap.matchMedia();
     mm.add("(min-width: 1024px)", () => {
+      const img1 = document.querySelector(".img-1");
+      const img2 = document.querySelector(".img-2");
+
+      if (!img1 || !img2) return;
+
+      // Get positions relative to the full document (accounts for scroll)
+      const getDocCenter = (el) => {
+        const rect = el.getBoundingClientRect();
+        return {
+          x: rect.left + window.scrollX + rect.width / 2,
+          y: rect.top + window.scrollY + rect.height / 2,
+        };
+      };
+
+      const center1 = getDocCenter(img1);
+      const center2 = getDocCenter(img2);
+
+      // Exact pixel distance from img-1 center → img-2 center
+      const offsetX =90; // tweak this value to shift more/less to the right
+      const deltaX = (center2.x - center1.x) + offsetX;
+      const deltaY = center2.y - center1.y;
+
       const drinkTl2 = gsap.timeline({
         scrollTrigger: {
           trigger: ".drink-section-bottom",
@@ -110,9 +132,9 @@ const DrinkSection = () => {
       });
 
       drinkTl2.to(".drink-section .img-1", {
-        yPercent: 115,
-        xPercent: -100,
-        rotate: 15,
+        x: deltaX,
+        y: deltaY,
+        rotate: 15, // Make it upright or match the final image rotation
         ease: "power2.out",
       });
     });
