@@ -219,11 +219,20 @@ const DrinkSection = () => {
               className="z-50 lg:h-[40vw] img-2"
             />
           </div>
-          <div className="md:h-full h-1/2 md:w-1/2 w-full flex justify-center items-center p-5">
-            <h2 className="md:text-[4.5vw] lg:text-[5vw] text-[30px]  text-white  font-medium text-center">
-              ALT-CO DRINKS
-              <br /> ARE BEST AND NATURAL
-            </h2>
+          <div className="md:h-full h-1/2 md:w-1/2 w-full p-8 md:p-14 lg:p-24 flex flex-col justify-center md:text-left text-center">
+            <h2 className="text-xl font-semibold mb-2 text-[#E1FF01]">ALT-CO DRINKS</h2>
+            <h1 className="text-4xl md:text-[4vw] lg:text-[4vw] uppercase text-white font-medium leading-tight mb-4 overflow-hidden">
+              Natural & <br /> Refreshing <br /> Every Time
+            </h1>
+            <h3 className="text-3xl md:text-4xl font-bold mb-6 text-white">₹499</h3>
+            <p className="text-base md:text-lg w-full md:w-[85%] lg:w-[70%] mb-8 text-gray-200 font-medium z-10 md:px-1 px-10 mx-auto md:mx-0">
+              Alt-Co drinks are fresh, Tasty , high protein and low in
+              calories and sugar, Alt-Co is the perfect guilt-free indulgence
+              that keeps you hydrated and satisfied.
+            </p>
+            <button className="bg-[#E1FF01] text-black px-8 py-3 rounded-full uppercase font-bold hover:bg-white transition-colors self-center md:self-start">
+              Try now
+            </button>
           </div>
         </div>
       </section>
