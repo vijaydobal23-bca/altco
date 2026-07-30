@@ -11,7 +11,6 @@ import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const publicDir = path.join(__dirname, "../public");
 
 const app = express();
 app.use(morgan("dev"));
@@ -19,7 +18,7 @@ app.use(morgan("dev"));
 // ─── Core Middleware ──────────────────────────────────────────────────────────
 app.use(
   cors({
-    origin: "*",
+    origin: "http://localhost:5173",
     credentials: true,
   }),
 );
@@ -33,17 +32,9 @@ app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/cart", cartRoutes);
 
-// ─── Serve Frontend Static Files ─────────────────────────────────────────────
-app.use(express.static(publicDir));
-
 // ─── Health Check (API only) ──────────────────────────────────────────────────
 app.get("/api", (req, res) => {
   res.json({ success: true, message: "ECOM API is running 🚀" });
-});
-
-// ─── SPA Fallback — serve index.html for all non-API routes ──────────────────
-app.get(/^(?!\/api).*/, (req, res) => {
-  res.sendFile(path.join(publicDir, "index.html"));
 });
 
 // ─── Global Error Handler ────────────────────────────────────────────────────
