@@ -6,6 +6,12 @@ import productRoutes from "./routes/product.routes.js";
 import orderRoutes from "./routes/order.routes.js";
 import cartRoutes from "./routes/cart.routes.js";
 import morgan from "morgan";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const publicDir = path.join(__dirname, "../public");
 
 const app = express();
 app.use(morgan("dev"));
@@ -13,7 +19,7 @@ app.use(morgan("dev"));
 // ─── Core Middleware ──────────────────────────────────────────────────────────
 app.use(
   cors({
-    origin: ["https://altco-kappa.vercel.app", "http://localhost:5173"], // Vite dev server
+    origin: "*",
     credentials: true,
   }),
 );
@@ -27,14 +33,17 @@ app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/cart", cartRoutes);
 
-// ─── Health Check ────────────────────────────────────────────────────────────
-app.get("/", (req, res) => {
+// ─── Serve Frontend Static Files ─────────────────────────────────────────────
+app.use(express.static(publicDir));
+
+// ─── Health Check (API only) ──────────────────────────────────────────────────
+app.get("/api", (req, res) => {
   res.json({ success: true, message: "ECOM API is running 🚀" });
 });
 
-// ─── 404 Handler ─────────────────────────────────────────────────────────────
-app.use((req, res) => {
-  res.status(404).json({ success: false, message: "Route not found." });
+// ─── SPA Fallback — serve index.html for all non-API routes ──────────────────
+app.get(/^(?!\/api).*/, (req, res) => {
+  res.sendFile(path.join(publicDir, "index.html"));
 });
 
 // ─── Global Error Handler ────────────────────────────────────────────────────

@@ -100,12 +100,37 @@ export const updateOrderStatus = async (req, res) => {
       return res.status(403).json({ success: false, message: "Forbidden" });
     }
 
-    const order = await orderModel.findOne({ _id: orderId, seller: seller.id }).populate("user", "name email");
+    const order = await orderModel
+      .findOne({ _id: orderId, seller: seller.id })
+      .populate("user", "name email")
+      .populate("items.product", "name price images");
 
     if (!order) {
       return res.status(404).json({ success: false, message: "Order not found or unauthorized" });
     }
 
+    if(status === "SHIPPED" && order.status !== "SHIPPED"){
+      await sendEmail({
+        to: order.user.email,
+        subject: "Order shipped",
+        text: "Your order has been shipped successfully",
+        html: `
+          <div>
+            <h1>Order shipped successfully</h1>
+            <p>Your order has been shipped successfully.</p>
+            <p>Your order id is ${order._id}</p>
+            <p>Your order items are ${order.items.map((item) => item.product?.name).join(", ")}</p>
+            <p>Your order total amount is ${order.totalAmount}</p>
+            <p>Your order payment method is ${order.paymentMethod}</p>
+            <p>Your order payment status is ${order.paymentStatus}</p>
+            <p>Your order destination address is ${order.destinationAddress}</p>
+            <p>Your order phone is ${order.phone}</p>
+            <p>Your order seller is ${order.seller}</p>
+            <p>Your order user is ${order.user._id}</p>
+          </div>  
+        `,
+      });
+    }
     if (status === "DELIVERED" && order.status !== "DELIVERED") {
       for (const item of order.items) {
         await productModel.findByIdAndUpdate(item.product, {
@@ -122,7 +147,7 @@ export const updateOrderStatus = async (req, res) => {
             <h1>Order delivered successfully</h1>
             <p>Your order has been delivered successfully.</p>
             <p>Your order id is ${order._id}</p>
-            <p>Your order items are ${order.items}</p>
+            <p>Your order items are ${order.items.map((item) => item.product?.name).join(", ")}</p>
             <p>Your order total amount is ${order.totalAmount}</p>
             <p>Your order payment method is ${order.paymentMethod}</p>
             <p>Your order payment status is ${order.paymentStatus}</p>

@@ -4,7 +4,7 @@ import axios from "axios";
 import Navbar from "./Navbar";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: (import.meta.env.VITE_API_URL || "") + "/api",
   withCredentials: true,
 });
 
@@ -118,15 +118,12 @@ function OrderHistoryPage() {
             orders.map((order) => (
               <div
                 key={order._id}
-                className="relative overflow-hidden backdrop-blur-2xl bg-white/10 border border-white/20 rounded-[2.5rem] shadow-2xl transition-all duration-500 hover:shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] hover:border-white/40 group"
+                className="relative overflow-hidden bg-white/8 border border-white/15 rounded-2xl shadow-md transition-all duration-300 hover:border-white/25 hover:bg-white/10 group"
               >
-                {/* Decorative Glow */}
-                <div className="absolute -top-24 -right-24 w-48 h-48 bg-white/20 blur-[50px] rounded-full pointer-events-none group-hover:bg-white/30 transition-all duration-700" />
-
                 {/* Header Section */}
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 p-6 sm:px-10 sm:py-8 border-b border-white/10 bg-black/5">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 p-5 sm:px-8 sm:py-6 border-b border-white/10 bg-black/5">
                   <div>
-                    <h3 className="text-white font-serif text-2xl sm:text-3xl">
+                    <h3 className="text-white font-serif text-xl sm:text-2xl">
                       Order #{order._id.substring(order._id.length - 8)}
                     </h3>
                     <p className="text-blue-200 text-xs font-bold uppercase tracking-[0.2em] mt-2">
@@ -155,7 +152,7 @@ function OrderHistoryPage() {
                 </div>
 
                 {/* Body Section */}
-                <div className="p-6 sm:p-10 space-y-8">
+                <div className="p-5 sm:p-8 space-y-6">
                   {/* Details Grid */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-4">
@@ -165,7 +162,7 @@ function OrderHistoryPage() {
                           Delivery Details
                         </p>
                       </div>
-                      <div className="bg-white/5 border border-white/10 rounded-2xl p-5 backdrop-blur-sm hover:bg-white/10 transition-colors">
+                      <div className="bg-white/5 border border-white/10 rounded-xl p-4 hover:bg-white/8 transition-colors">
                         <p className="text-white font-bold text-lg mb-1">
                           {order.phone}
                         </p>
@@ -182,7 +179,7 @@ function OrderHistoryPage() {
                           Payment Summary
                         </p>
                       </div>
-                      <div className="bg-white/5 border border-white/10 rounded-2xl p-5 backdrop-blur-sm hover:bg-white/10 transition-colors flex flex-col justify-between h-full">
+                      <div className="bg-white/5 border border-white/10 rounded-xl p-4 hover:bg-white/8 transition-colors flex flex-col justify-between h-full">
                         <div className="flex justify-between items-start mb-4">
                           <div>
                             <p className="text-blue-200 text-xs font-bold uppercase tracking-widest mb-1">
@@ -207,7 +204,7 @@ function OrderHistoryPage() {
                           <p className="text-blue-200 text-xs font-bold uppercase tracking-widest">
                             Total Amount
                           </p>
-                          <p className="text-3xl font-black text-white tracking-tight">
+                          <p className="text-2xl font-black text-white tracking-tight">
                             Rs. {order.totalAmount?.toLocaleString()}
                           </p>
                         </div>
@@ -228,14 +225,14 @@ function OrderHistoryPage() {
                       {order.items?.map((item, idx) => (
                         <div
                           key={idx}
-                          className="group/item flex items-center gap-4 bg-black/20 border border-white/10 p-3 rounded-[1.5rem] hover:bg-white/10 transition-all duration-300"
+                          className="flex items-center gap-4 bg-black/15 border border-white/10 p-3 rounded-xl hover:bg-white/8 transition-colors"
                         >
-                          <div className="w-20 h-24 bg-white/5 rounded-xl overflow-hidden flex-shrink-0 relative">
+                          <div className="w-16 h-20 bg-white/5 rounded-lg overflow-hidden flex-shrink-0 relative">
                             {item.product?.images ? (
                               <img
                                 src={item.product.images}
                                 alt={item.product.name}
-                                className="w-full h-full object-cover group-hover/item:scale-110 transition-transform duration-700"
+                                className="w-full h-full object-cover"
                               />
                             ) : (
                               <div className="w-full h-full flex items-center justify-center">
@@ -256,7 +253,7 @@ function OrderHistoryPage() {
                             )}
                           </div>
                           <div className="flex-1 min-w-0 pr-4">
-                            <h4 className="font-serif text-white text-lg truncate mb-1">
+                            <h4 className="font-serif text-white text-base truncate mb-1">
                               {item.product?.name || "Unknown Product"}
                             </h4>
                             <div className="flex items-center gap-3">

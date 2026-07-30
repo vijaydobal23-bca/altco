@@ -37,36 +37,33 @@ function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Glow blob */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-yellow-200 rounded-full opacity-30 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-yellow-100 rounded-full opacity-40 blur-3xl" />
-      </div>
+    <div className="min-h-screen bg-blue-500 flex items-center justify-center p-4 relative overflow-hidden">
 
       <div className="relative w-full max-w-md">
         {/* Card */}
-        <div className="backdrop-blur-xl bg-white/70 border border-yellow-200/60 rounded-3xl shadow-xl p-8">
-          {/* Logo / Brand */}
+        <div className="bg-white/10 border border-white/20 rounded-2xl shadow-xl p-8 backdrop-blur-sm">
+
+          {/* Brand */}
           <div className="flex flex-col items-center mb-8">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-yellow-300 to-amber-400 flex items-center justify-center shadow-md mb-4">
-              <svg className="w-7 h-7 text-stone-900" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+            <div className="w-14 h-14 rounded-2xl bg-white/20 border border-white/30 flex items-center justify-center mb-4 shadow-md">
+              <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
             </div>
-            <h1 className="text-2xl font-bold text-stone-900 tracking-tight">Welcome back</h1>
-            <p className="text-sm text-stone-600 mt-1">Sign in to your ECOM account</p>
+            <h1 className="text-2xl font-bold text-white tracking-tight">Welcome back</h1>
+            <p className="text-sm text-blue-100 mt-1">Sign in to your Altco account</p>
           </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-5">
+
             {/* Email */}
             <div className="space-y-1.5">
-              <label htmlFor="login-email" className="block text-sm font-medium text-stone-700">
+              <label htmlFor="login-email" className="block text-xs font-bold text-blue-200 uppercase tracking-widest">
                 Email address
               </label>
               <div className="relative">
-                <span className="absolute inset-y-0 left-3 flex items-center text-yellow-500/60">
+                <span className="absolute inset-y-0 left-3 flex items-center text-white/40">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
@@ -79,18 +76,18 @@ function Login() {
                   onChange={handleChange}
                   placeholder="you@example.com"
                   autoComplete="email"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/80 border border-yellow-200/80 text-stone-900 placeholder-stone-400 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400/60 focus:border-yellow-400/60 transition shadow-sm"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/30 text-sm focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-white/40 transition"
                 />
               </div>
             </div>
 
             {/* Password */}
             <div className="space-y-1.5">
-              <label htmlFor="login-password" className="block text-sm font-medium text-stone-700">
+              <label htmlFor="login-password" className="block text-xs font-bold text-blue-200 uppercase tracking-widest">
                 Password
               </label>
               <div className="relative">
-                <span className="absolute inset-y-0 left-3 flex items-center text-yellow-500/60">
+                <span className="absolute inset-y-0 left-3 flex items-center text-white/40">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                   </svg>
@@ -103,7 +100,7 @@ function Login() {
                   onChange={handleChange}
                   placeholder="••••••••"
                   autoComplete="current-password"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/80 border border-yellow-200/80 text-stone-900 placeholder-stone-400 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400/60 focus:border-yellow-400/60 transition shadow-sm"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/30 text-sm focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-white/40 transition"
                 />
               </div>
             </div>
@@ -113,7 +110,7 @@ function Login() {
               id="login-submit-btn"
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl bg-gradient-to-r from-yellow-300 to-amber-400 hover:from-yellow-200 hover:to-amber-300 text-stone-900 font-bold text-sm tracking-wide shadow-lg shadow-yellow-400/20 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full py-3.5 rounded-xl bg-white text-blue-900 font-bold text-sm tracking-wide shadow-md hover:bg-blue-50 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-2"
             >
               {loading ? (
                 <>
@@ -131,17 +128,17 @@ function Login() {
 
           {/* Divider */}
           <div className="flex items-center gap-3 my-6">
-            <div className="flex-1 h-px bg-yellow-200/60" />
-            <span className="text-xs text-stone-400 font-medium">New here?</span>
-            <div className="flex-1 h-px bg-yellow-200/60" />
+            <div className="flex-1 h-px bg-white/20" />
+            <span className="text-xs text-blue-200 font-medium">New here?</span>
+            <div className="flex-1 h-px bg-white/20" />
           </div>
 
           {/* Register link */}
-          <p className="text-center text-sm text-stone-600">
+          <p className="text-center text-sm text-blue-100">
             Don&apos;t have an account?{" "}
             <Link
               to="/register"
-              className="text-amber-500 hover:text-amber-400 font-bold transition-colors"
+              className="text-white font-bold hover:text-blue-200 transition-colors"
             >
               Create account →
             </Link>

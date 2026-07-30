@@ -17,7 +17,7 @@ function CartPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-purple-500 text-white px-5">
+      <div className="min-h-screen bg-bluee-500 ">
         <Navbar />
         <div className="flex items-center justify-center h-[70vh]">
           <svg
