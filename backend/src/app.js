@@ -11,6 +11,7 @@ import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const publicDir = path.join(__dirname, "../public");
 
 const app = express();
 app.use(morgan("dev"));
@@ -32,10 +33,13 @@ app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/cart", cartRoutes);
 
-// ─── Health Check (API only) ──────────────────────────────────────────────────
+
 app.get("/api", (req, res) => {
   res.json({ success: true, message: "ECOM API is running 🚀" });
 });
+
+
+
 
 // ─── Global Error Handler ────────────────────────────────────────────────────
 app.use((err, req, res, next) => {
