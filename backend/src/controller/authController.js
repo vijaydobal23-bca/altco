@@ -85,7 +85,7 @@ export const register = async (req, res) => {
           <h1>Welcome ${name}</h1>
           <p>We are thrilled to have you here at Alt Co.</p>
           <p>please verify your email address by clicking the link:</p>
-          <a href = "http://localhost:3000/api/auth/verify-email?token=${emailVarificationToken}">Verify Email</a>
+          <a href = "https://altco-2.onrender.com/api/auth/verify-email?token=${emailVarificationToken}">Verify Email</a>
           <p>Best regards<br>The Alt Co team </p>
         </div>
     `,
