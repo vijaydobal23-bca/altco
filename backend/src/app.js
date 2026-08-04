@@ -19,7 +19,9 @@ app.use(morgan("dev"));
 // ─── Core Middleware ──────────────────────────────────────────────────────────
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: function (origin, callback) {
+      callback(null, true);
+    },
     credentials: true,
   }),
 );

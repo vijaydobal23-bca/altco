@@ -14,8 +14,8 @@ const signToken = (user) =>
 const setCookie = (res, token) =>
   res.cookie("jwt", token, {
     httpOnly: true,
-    sameSite: "strict",
-    secure: process.env.NODE_ENV === "production",
+    sameSite: "none",
+    secure: true,
     maxAge: 3 * 24 * 60 * 60 * 1000, // 3 days
   });
 
