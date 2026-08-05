@@ -46,7 +46,7 @@ function CartPage() {
 
   if (cartItems.length === 0) {
     return (
-      <div className="min-h-screen bg-blue-500 text-white px-5">
+      <div className="min-h-screen bg-blue-500 text-white">
         <Navbar />
         <div className="flex flex-col items-center justify-center h-[70vh] text-center px-6">
           <div className="w-24 h-24 rounded-full bg-white/10 border border-white/20 flex items-center justify-center mb-6">
