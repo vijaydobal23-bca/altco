@@ -16,7 +16,7 @@ app.use(morgan("dev"));
 // ─── Core Middleware ──────────────────────────────────────────────────────────
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://altco-2.onrender.com"],
+    origin: ["http://localhost:5173", "https://altco-2.onrender.com", "https://altco-xzbl.vercel.app"],
     credentials: true
   }),
 );
