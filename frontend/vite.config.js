@@ -6,8 +6,7 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   build: {
-    // Vercel sets process.env.VERCEL=1 automatically
-    outDir: process.env.VERCEL ? "dist" : "../backend/public",
+    outDir: "dist",
     emptyOutDir: true,
     chunkSizeWarningLimit: 1000,
     rollupOptions: {
