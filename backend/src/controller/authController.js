@@ -67,10 +67,14 @@ export const register = async (req, res) => {
 
     const user = await userModel.create(userData);
 
+    const token = signToken(user);
+    setCookie(res, token);
+
     return res.status(201).json({
       success: true,
       message: "Account created successfully.",
       user: safeUser(user),
+      token,
     });
   } catch (error) {
     console.error("Register error:", error);
