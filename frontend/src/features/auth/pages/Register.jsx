@@ -43,7 +43,7 @@ function Register() {
 
     if (result.success) {
       toast.success("Account created successfully! Welcome to Altco.");
-      navigate(result.user?.role === "seller" ? "/seller" : "/");
+      navigate("/");
     } else {
       toast.error(result.message);
     }
