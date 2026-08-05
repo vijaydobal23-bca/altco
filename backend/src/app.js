@@ -5,13 +5,10 @@ import authRoutes from "./routes/auth.routes.js";
 import productRoutes from "./routes/product.routes.js";
 import orderRoutes from "./routes/order.routes.js";
 import cartRoutes from "./routes/cart.routes.js";
+import notificationRoutes from "./routes/notification.routes.js";
 import morgan from "morgan";
-import path from "path";
-import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const publicDir = path.join(__dirname, "../public");
+
 
 const app = express();
 app.use(morgan("dev"));
@@ -19,11 +16,9 @@ app.use(morgan("dev"));
 // ─── Core Middleware ──────────────────────────────────────────────────────────
 app.use(
   cors({
-    origin: function (origin, callback) {
-      callback(null, true);
-    },
-    credentials: true,
-  }),
+    origin:["http://localhost:5173"],
+    credentials:true
+   }),
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -34,6 +29,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/cart", cartRoutes);
+app.use("/api/notifications", notificationRoutes);
 
 
 app.get("/api", (req, res) => {

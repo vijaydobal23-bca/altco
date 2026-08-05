@@ -4,6 +4,7 @@ import routes from "./app.routes";
 import { AuthContextProvider } from "../features/auth/auth.context";
 import { SellerContextProvider } from "../features/seller/seller.context";
 import { CartContextProvider } from "../features/Home/home.context";
+import { NotificationContextProvider } from "../features/Home/notification.context";
 
 
 import gsap from "gsap";
@@ -29,13 +30,15 @@ function App() {
   return (
     <AuthContextProvider>
       <CartContextProvider>
-        <SellerContextProvider>
-          <div id="smooth-wrapper">
-            <div id="smooth-content">
-              <RouterProvider router={routes} />
+        <NotificationContextProvider>
+          <SellerContextProvider>
+            <div id="smooth-wrapper">
+              <div id="smooth-content">
+                <RouterProvider router={routes} />
+              </div>
             </div>
-          </div>
-        </SellerContextProvider>
+          </SellerContextProvider>
+        </NotificationContextProvider>
         <Toaster
           position="top-right"
           toastOptions={{

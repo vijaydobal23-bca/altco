@@ -253,11 +253,11 @@ const DrinkSection = () => {
           </div>
           <div className="md:h-full h-1/2 md:w-1/2 w-full p-8 md:p-14 lg:p-24 flex flex-col justify-center items-center md:items-end text-center md:text-right">
             <h2 className="text-xl font-semibold mb-2 text-[#E1FF01]">ALT-CO DRINKS</h2>
-            <h1 className="text-4xl md:text-[4vw] lg:text-[4vw] uppercase text-white font-medium leading-tight mb-4 overflow-hidden">
+            <h1 className="text-4xl md:text-[4vw] lg:text-[4vw] uppercase text-white font-medium leading-tight mb-4 ">
               Fresh & <br /> Refreshing <br /> Every Time
             </h1>
             <h3 className="text-3xl md:text-4xl font-bold mb-6 text-white">₹499</h3>
-            <p className="text-base md:text-lg w-full md:w-[85%] lg:w-[70%] mb-8 text-gray-200 font-medium z-10 md:px-1 px-10 mx-auto md:ml-auto md:mr-0 overflow-hidden">
+            <p className="text-base md:text-lg w-full md:w-[85%] lg:w-[70%] mb-8 text-gray-200 font-medium z-10 md:px-1 px-10 mx-auto md:ml-auto md:mr-0 ">
               Alt-Co drinks are fresh, Tasty , high protein and low in
               calories and sugar, Alt-Co is the perfect guilt-free indulgence
               that keeps you hydrated and satisfied.

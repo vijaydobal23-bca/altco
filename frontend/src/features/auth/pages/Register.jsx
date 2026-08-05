@@ -42,9 +42,8 @@ function Register() {
     );
 
     if (result.success) {
-      toast.success("Account created! Please check your email to verify your account.");
-      // Do not navigate automatically so they see the message
-      // navigate(role === "seller" ? "/seller" : "/");
+      toast.success("Account created successfully! Welcome to Altco.");
+      navigate(result.user?.role === "seller" ? "/seller" : "/");
     } else {
       toast.error(result.message);
     }

@@ -1,6 +1,6 @@
 import orderModel from "../model/order.model.js";
 import productModel from "../model/product.model.js";
-import { sendEmail } from "../services/mail.service.js";
+import { createOrderNotification } from "../services/notification.sevice.js";
 
 export const createOrder = async (req, res) => {
   try {
@@ -32,27 +32,14 @@ export const createOrder = async (req, res) => {
       paymentStatus,
     });
 
-    await sendEmail({
-      to: user.email,
-      subject: "Order confirmation",
-      text: "Order created successfully",
-      html: `
-        <div>
-          <h1>Thank You so much from Ordering</h1>
-          <p>Your order has been created successfully.</p>
-          <p>Your order id is ${order._id}</p>
-          <p>Your order items are ${items}</p>
-          <p>Your order total amount is ${totalAmount}</p>
-          <p>Your order payment method is ${paymentMethod}</p>
-          <p>Your order payment status is ${paymentStatus}</p>
-          <p>Your order destination address is ${address}</p>
-          <p>Your order phone is ${phone}</p>
-          <p>Your order seller is ${sellerId}</p>
-          <p>Your order user is ${user.id}</p>
-          <p>Your Order will be delivered within 7-10 business days</p>
-        </div>
-      `,
-    });
+    // ── In-app notification: order placed ──────────────────────────────────
+    await createOrderNotification(
+      user.id,
+      "ORDER_PLACED",
+      "Order Placed Successfully! 🎉",
+      `Your order #${order._id} has been placed. Total: ₹${totalAmount}. Payment: ${paymentMethod}. We'll deliver to ${address} within 7–10 business days.`,
+      order._id
+    );
 
     return res
       .status(200)
@@ -106,64 +93,61 @@ export const updateOrderStatus = async (req, res) => {
       .populate("items.product", "name price images");
 
     if (!order) {
-      return res.status(404).json({ success: false, message: "Order not found or unauthorized" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Order not found or unauthorized" });
     }
 
-    if(status === "SHIPPED" && order.status !== "SHIPPED"){
-      await sendEmail({
-        to: order.user.email,
-        subject: "Order shipped",
-        text: "Your order has been shipped successfully",
-        html: `
-          <div>
-            <h1>Order shipped successfully</h1>
-            <p>Your order has been shipped successfully.</p>
-            <p>Your order id is ${order._id}</p>
-            <p>Your order items are ${order.items.map((item) => item.product?.name).join(", ")}</p>
-            <p>Your order total amount is ${order.totalAmount}</p>
-            <p>Your order payment method is ${order.paymentMethod}</p>
-            <p>Your order payment status is ${order.paymentStatus}</p>
-            <p>Your order destination address is ${order.destinationAddress}</p>
-            <p>Your order phone is ${order.phone}</p>
-            <p>Your order seller is ${order.seller}</p>
-            <p>Your order user is ${order.user._id}</p>
-          </div>  
-        `,
-      });
+    const itemNames = order.items
+      .map((item) => item.product?.name)
+      .filter(Boolean)
+      .join(", ");
+
+    // ── SHIPPED notification ───────────────────────────────────────────────
+    if (status === "SHIPPED" && order.status !== "SHIPPED") {
+      await createOrderNotification(
+        order.user._id,
+        "ORDER_SHIPPED",
+        "Your Order Has Been Shipped! 🚚",
+        `Great news! Your order #${order._id} containing "${itemNames}" is on its way. Total: ₹${order.totalAmount}. Expected delivery in 2–3 business days to ${order.destinationAddress}.`,
+        order._id
+      );
     }
+
+    // ── DELIVERED notification ─────────────────────────────────────────────
     if (status === "DELIVERED" && order.status !== "DELIVERED") {
       for (const item of order.items) {
         await productModel.findByIdAndUpdate(item.product, {
-          $inc: { stock: -item.quantity }
+          $inc: { stock: -item.quantity },
         });
       }
 
-      await sendEmail({
-        to: order.user.email,
-        subject: "Order delivered",
-        text: "Your order has been delivered successfully",
-        html: `
-          <div>
-            <h1>Order delivered successfully</h1>
-            <p>Your order has been delivered successfully.</p>
-            <p>Your order id is ${order._id}</p>
-            <p>Your order items are ${order.items.map((item) => item.product?.name).join(", ")}</p>
-            <p>Your order total amount is ${order.totalAmount}</p>
-            <p>Your order payment method is ${order.paymentMethod}</p>
-            <p>Your order payment status is ${order.paymentStatus}</p>
-            <p>Your order destination address is ${order.destinationAddress}</p>
-            <p>Your order phone is ${order.phone}</p>
-            <p>Your order seller is ${order.seller}</p>
-            <p>Your order user is ${order.user._id}</p>
-          </div>  
-        `,
-      });
+      await createOrderNotification(
+        order.user._id,
+        "ORDER_DELIVERED",
+        "Order Delivered Successfully! ✅",
+        `Your order #${order._id} containing "${itemNames}" has been delivered. Total paid: ₹${order.totalAmount}. Thank you for shopping with ALT!`,
+        order._id
+      );
+    }
+
+    // ── CANCELLED notification ─────────────────────────────────────────────
+    if (status === "CANCELLED" && order.status !== "CANCELLED") {
+      await createOrderNotification(
+        order.user._id,
+        "ORDER_CANCELLED",
+        "Order Cancelled",
+        `Your order #${order._id} has been cancelled. If you paid online, a refund will be processed within 5–7 business days.`,
+        order._id
+      );
     }
 
     order.status = status;
     await order.save();
 
-    return res.status(200).json({ success: true, message: "Order status updated", order });
+    return res
+      .status(200)
+      .json({ success: true, message: "Order status updated", order });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: "Server error" });

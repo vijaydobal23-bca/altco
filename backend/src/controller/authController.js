@@ -1,7 +1,6 @@
 import userModel from "../model/userModel.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { sendEmail } from "../services/mail.service.js";
 
 // ─── helpers ─────────────────────────────────────────────────────────────────
 const signToken = (user) =>
@@ -24,7 +23,6 @@ const safeUser = (user) => ({
   name: user.name,
   email: user.email,
   role: user.role,
-  isVerified: user.isVerified,
   sellerInfo: user.sellerInfo,
 });
 
@@ -69,28 +67,6 @@ export const register = async (req, res) => {
 
     const user = await userModel.create(userData);
 
-    const emailVarificationToken =  jwt.sign(
-      {
-        email: user.email,
-      },
-      process.env.JWT_SECRET,
-    );
-
-    await sendEmail({
-      to: email,
-      subject: "Welcome to ALT-CO",
-      text: `hi ${name} thank you for registration.`,
-      html: `
-        <div>
-          <h1>Welcome ${name}</h1>
-          <p>We are thrilled to have you here at Alt Co.</p>
-          <p>please verify your email address by clicking the link:</p>
-          <a href = "https://altco-2.onrender.com/api/auth/verify-email?token=${emailVarificationToken}">Verify Email</a>
-          <p>Best regards<br>The Alt Co team </p>
-        </div>
-    `,
-    });
-
     return res.status(201).json({
       success: true,
       message: "Account created successfully.",
@@ -101,47 +77,6 @@ export const register = async (req, res) => {
     return res
       .status(500)
       .json({ success: false, message: "Internal server error.", error: error.message });
-  }
-};
-
-export const verifyUser = async (req, res) => {
-  try {
-    const { token } = req.query;
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await userModel.findOne({
-      email: decoded.email,
-    });
-
-    if (!user) {
-      return res.status(400).json({
-        message: "Invalid token",
-        sucess: false,
-        err: "User not found",
-      });
-    }
-
-    const userAlreadyVerified = user.isVerified;
-    if (userAlreadyVerified) {
-      return res.status(400).json({
-        message: "User already verified Please go to login",
-        sucess: false,
-        err: "User already verified.Please login",
-      });
-    }
-
-    user.isVerified = true;
-    await user.save();
-    const html = `<h1>Email varified suceessfully</h1>
-      <p> Now you can login to your account</p> `;
-
-    res.send(html);
-  } catch (error) {
-    console.error("Error during email verification:", error);
-    return res.status(500).json({
-      message: "An error occurred during email verification",
-      success: false,
-      err: error.message,
-    });
   }
 };
 
@@ -161,14 +96,6 @@ export const login = async (req, res) => {
       return res
         .status(401)
         .json({ success: false, message: "Invalid email or password." });
-    }
-
-    const isVerified = user.isVerified;
-    if (!isVerified) {
-      return res.status(400).json({
-        message: "Your account is not verified. Please check your email.",
-        success: false,
-      });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);

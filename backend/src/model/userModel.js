@@ -31,11 +31,6 @@ const userSchema = new mongoose.Schema(
       default: "buyer",
     },
 
-    // Top-level verification for both buyer and seller
-    isVerified: {
-      type: Boolean,
-      default: false,
-    },
 
     // Seller-specific fields (only populated when role === "seller")
     sellerInfo: {

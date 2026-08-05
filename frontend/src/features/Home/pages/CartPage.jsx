@@ -99,6 +99,13 @@ function CartPage() {
             >
               Order History
             </Link>
+
+            <Link
+              to="/notifications"
+              className="text-[10px] sm:text-xs uppercase tracking-widest font-bold text-white bg-white/10 hover:bg-white hover:text-purple-900 border border-white/20 px-4 py-2 rounded-full transition-colors shadow-sm"
+            >
+              notification
+            </Link>
             <button
               id="clear-cart-btn"
               onClick={handleClearCart}

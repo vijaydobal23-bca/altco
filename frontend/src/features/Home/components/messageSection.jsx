@@ -37,11 +37,11 @@ const Leaf = ({ color, topText, bottomText, rotation = 20 }) => (
   </svg>
 );
 
-const FeatureItem = ({ color, topText, bottomText, rotation }) => (
+const FeatureItem = ({ color, topText, bottomText, rotation, description }) => (
   <div className="flex flex-col items-start gap-2 sm:gap-3">
     <Leaf color={color} topText={topText} bottomText={bottomText} rotation={rotation} />
     <p className="text-white text-[11px] sm:text-[13px] md:text-[15px] leading-snug font-normal w-[22vw] sm:w-[18vw] md:w-[15vw] lg:w-[220px]">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. At, in.
+      {description}
     </p>
   </div>
 );
@@ -84,8 +84,20 @@ const MessageSection = () => {
 
         {/* Left Column */}
         <div className="flex flex-col justify-between py-[5%] w-[25vw] sm:w-[22vw] md:w-[20vw] lg:w-[18vw] shrink-0">
-          <FeatureItem color="#98c946" topText="100%" bottomText="Vegan" rotation={20} className="left-1" />
-          <FeatureItem color="#efd510" topText="Complete" bottomText="Protein" rotation={-20} className="left-2"/>
+          <FeatureItem 
+            color="#98c946" 
+            topText="100%" 
+            bottomText="Vegan" 
+            rotation={20} 
+            description="Crafted purely from plant-based ingredients for a cruelty-free and sustainable choice."
+          />
+          <FeatureItem 
+            color="#efd510" 
+            topText="Complete" 
+            bottomText="Protein" 
+            rotation={-20} 
+            description="Packed with all essential amino acids to fuel your body and keep you energized."
+          />
         </div>
 
         {/* Center — GOOD GUT */}
@@ -98,8 +110,20 @@ const MessageSection = () => {
 
         {/* Right Column */}
         <div className="flex flex-col justify-between py-[5%] w-[25vw] sm:w-[22vw] md:w-[20vw] lg:w-[18vw] shrink-0 items-start">
-          <FeatureItem color="#98c946" topText="100%" bottomText="Vegan" rotation={20} />
-          <FeatureItem color="#efd510" topText="Complete" bottomText="Protein" rotation={-20} />
+          <FeatureItem 
+            color="#f78f1e" 
+            topText="Zero" 
+            bottomText="Sugar" 
+            rotation={20} 
+            description="Naturally sweetened with zero refined sugars for a guilt-free, refreshing experience."
+          />
+          <FeatureItem 
+            color="#56c2e6" 
+            topText="Lactose" 
+            bottomText="Free" 
+            rotation={-20} 
+            description="Perfect for sensitive stomachs, ensuring easy digestion and zero bloating."
+          />
         </div>
 
       </div>

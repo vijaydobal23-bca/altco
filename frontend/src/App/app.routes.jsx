@@ -12,6 +12,7 @@ import CheckoutPage from "../features/Home/pages/CheckoutPage";
 import OrderHistoryPage from "../features/Home/pages/OrderHistoryPage";
 import SellerOrders from "../features/seller/pages/SellerOrders";
 import AltMenu from "../features/Home/components/AltMenu";
+import NotificationsPage from "../features/Home/pages/NotificationsPage";
 
 const routes = createBrowserRouter([
   {
@@ -59,6 +60,14 @@ const routes = createBrowserRouter([
     element: (
       <AuthRoute>
         <OrderHistoryPage />
+      </AuthRoute>
+    ),
+  },
+  {
+    path: "/notifications",
+    element: (
+      <AuthRoute>
+        <NotificationsPage />
       </AuthRoute>
     ),
   },
