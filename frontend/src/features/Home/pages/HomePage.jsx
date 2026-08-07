@@ -16,11 +16,11 @@ function HomePage() {
   
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-blue-500">
       <Navbar />
 
       {/* Hero Section */}
-      <main>
+      <main className = "bg-blue-500">
         <Hero />
         <ProductSection />
         <MessageSection />
