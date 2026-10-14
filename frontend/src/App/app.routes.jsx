@@ -1,25 +1,33 @@
+import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
-import Login from "../features/auth/pages/Login";
-import Register from "../features/auth/pages/Register";
-import SellerDashboard from "../features/seller/pages/SellerDashboard";
-import CreateProduct from "../features/seller/pages/CreateProduct";
+
+// ─── Route-guard components (kept as static imports – they're tiny and always needed) ──
 import ProtectedRoute from "../features/seller/components/ProtectedRoute";
 import AuthRoute from "../features/auth/components/AuthRoute";
-import HomePage from "../features/Home/pages/HomePage";
-import StorePage from "../features/Home/pages/StorePage";
-import CartPage from "../features/Home/pages/CartPage";
-import CheckoutPage from "../features/Home/pages/CheckoutPage";
-import OrderHistoryPage from "../features/Home/pages/OrderHistoryPage";
-import SellerOrders from "../features/seller/pages/SellerOrders";
-import AltMenu from "../features/Home/components/AltMenu";
-import NotificationsPage from "../features/Home/pages/NotificationsPage";
+import ErrorBoundary from "./ErrorBoundary";
+
+// ─── Lazy-loaded page components ──────────────────────────────────────────────
+const Login = lazy(() => import("../features/auth/pages/Login"));
+const Register = lazy(() => import("../features/auth/pages/Register"));
+const SellerDashboard = lazy(() => import("../features/seller/pages/SellerDashboard"));
+const CreateProduct = lazy(() => import("../features/seller/pages/CreateProduct"));
+const SellerOrders = lazy(() => import("../features/seller/pages/SellerOrders"));
+const HomePage = lazy(() => import("../features/Home/pages/HomePage"));
+const StorePage = lazy(() => import("../features/Home/pages/StorePage"));
+const CartPage = lazy(() => import("../features/Home/pages/CartPage"));
+const CheckoutPage = lazy(() => import("../features/Home/pages/CheckoutPage"));
+const OrderHistoryPage = lazy(() => import("../features/Home/pages/OrderHistoryPage"));
+const AltMenu = lazy(() => import("../features/Home/components/AltMenu"));
+const NotificationsPage = lazy(() => import("../features/Home/pages/NotificationsPage"));
 
 const routes = createBrowserRouter([
   {
     path: "/",
     element: (
       <AuthRoute>
-        <HomePage />
+        <ErrorBoundary>
+          <HomePage />
+        </ErrorBoundary>
       </AuthRoute>
     ),
   },
@@ -27,7 +35,9 @@ const routes = createBrowserRouter([
     path: "/alt-menu",
     element: (
       <AuthRoute>
-        <AltMenu />
+        <ErrorBoundary>
+          <AltMenu />
+        </ErrorBoundary>
       </AuthRoute>
     ),
   },
@@ -35,7 +45,9 @@ const routes = createBrowserRouter([
     path: "/store",
     element: (
       <AuthRoute>
-        <StorePage />
+        <ErrorBoundary>
+          <StorePage />
+        </ErrorBoundary>
       </AuthRoute>
     ),
   },
@@ -43,7 +55,9 @@ const routes = createBrowserRouter([
     path: "/cart",
     element: (
       <AuthRoute>
-        <CartPage />
+        <ErrorBoundary>
+          <CartPage />
+        </ErrorBoundary>
       </AuthRoute>
     ),
   },
@@ -51,7 +65,9 @@ const routes = createBrowserRouter([
     path: "/checkout",
     element: (
       <AuthRoute>
-        <CheckoutPage />
+        <ErrorBoundary>
+          <CheckoutPage />
+        </ErrorBoundary>
       </AuthRoute>
     ),
   },
@@ -59,7 +75,9 @@ const routes = createBrowserRouter([
     path: "/orders",
     element: (
       <AuthRoute>
-        <OrderHistoryPage />
+        <ErrorBoundary>
+          <OrderHistoryPage />
+        </ErrorBoundary>
       </AuthRoute>
     ),
   },
@@ -67,17 +85,27 @@ const routes = createBrowserRouter([
     path: "/notifications",
     element: (
       <AuthRoute>
-        <NotificationsPage />
+        <ErrorBoundary>
+          <NotificationsPage />
+        </ErrorBoundary>
       </AuthRoute>
     ),
   },
   {
     path: "/login",
-    element: <Login />,
+    element: (
+      <ErrorBoundary>
+        <Login />
+      </ErrorBoundary>
+    ),
   },
   {
     path: "/register",
-    element: <Register />,
+    element: (
+      <ErrorBoundary>
+        <Register />
+      </ErrorBoundary>
+    ),
   },
 
   // ─── Protected Seller Routes ─────────────────────────────────────────────────
@@ -85,7 +113,9 @@ const routes = createBrowserRouter([
     path: "/seller",
     element: (
       <ProtectedRoute>
-        <SellerDashboard />
+        <ErrorBoundary>
+          <SellerDashboard />
+        </ErrorBoundary>
       </ProtectedRoute>
     ),
   },
@@ -93,7 +123,9 @@ const routes = createBrowserRouter([
     path: "/seller/create",
     element: (
       <ProtectedRoute>
-        <CreateProduct />
+        <ErrorBoundary>
+          <CreateProduct />
+        </ErrorBoundary>
       </ProtectedRoute>
     ),
   },
@@ -101,7 +133,9 @@ const routes = createBrowserRouter([
     path: "/seller/orders",
     element: (
       <ProtectedRoute>
-        <SellerOrders />
+        <ErrorBoundary>
+          <SellerOrders />
+        </ErrorBoundary>
       </ProtectedRoute>
     ),
   },

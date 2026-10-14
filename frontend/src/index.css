@@ -1,47 +1,48 @@
 @import "tailwindcss";
 
-html, body {
+html,
+body {
   overflow-x: hidden;
   background-color: #227eef !important;
 }
 
 * {
-  font-family: 'Fredoka', sans-serif;
+  font-family: "Fredoka", sans-serif;
 }
 
-.slideanimation1{
-   animation-name: slide1;
+.slideanimation1 {
+  animation-name: slide1;
   animation-duration: 10s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
 
-.slideanimation2{
-   animation-name: slide2;
+.slideanimation2 {
+  animation-name: slide2;
   animation-duration: 10s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
 
-@keyframes slide1{
-  0%{
+@keyframes slide1 {
+  0% {
     transform: translateX(0%);
   }
-  100%{
+  100% {
     transform: translateX(-100%);
   }
 }
 
-@keyframes slide2{
-  0%{
+@keyframes slide2 {
+  0% {
     transform: translateX(0%);
   }
-  100%{
+  100% {
     transform: translateX(100%);
   }
 }
 
-.protine{
+.protine {
   animation-name: move;
   animation-duration: 3s;
   animation-direction: alternate;
@@ -50,55 +51,51 @@ html, body {
 }
 
 @keyframes move {
-  0%{
-     transform: translateY(0%);
+  0% {
+    transform: translateY(0%);
   }
-  100%{
-     transform: translateY(-8%);
+  100% {
+    transform: translateY(-8%);
   }
 }
 
-.move{
+.move {
   animation-name: move;
   animation-duration: 2s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
 
-
-.stripanimation{
-   animation-name: st1;
+.stripanimation {
+  animation-name: st1;
   animation-duration: 20s;
 
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
 
-.stripanimation2{
-   animation-name: st2;
+.stripanimation2 {
+  animation-name: st2;
   animation-duration: 20s;
 
   animation-timing-function: linear;
   animation-iteration-count: infinite;
-  
 }
 
-@keyframes st1{
-  0%{
+@keyframes st1 {
+  0% {
     transform: translateX(0%);
   }
-  100%{
+  100% {
     transform: translateX(-50%);
   }
 }
 
-@keyframes st2{
-  0%{
+@keyframes st2 {
+  0% {
     transform: translateX(-50%);
   }
-  100%{
+  100% {
     transform: translateX(0%);
   }
 }
-
-

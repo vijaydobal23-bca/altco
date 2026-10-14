@@ -1,7 +1,7 @@
-import React, { useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React, { useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,8 +17,8 @@ const Footer = () => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: footerRef.current,
-          start: 'top 65%',
-          toggleActions: 'play none none none',
+          start: "top 65%",
+          toggleActions: "play none none none",
         },
       });
 
@@ -31,9 +31,9 @@ const Footer = () => {
           opacity: 1,
           duration: 0.8,
           stagger: 0.15,
-          ease: 'power3.out',
+          ease: "power3.out",
         },
-        0
+        0,
       );
 
       // Logo: rise up from BOTTOM
@@ -44,9 +44,9 @@ const Footer = () => {
           y: 0,
           opacity: 1,
           duration: 1,
-          ease: 'power3.out',
+          ease: "power3.out",
         },
-        0
+        0,
       );
 
       // Right links: slide in from RIGHT
@@ -58,9 +58,9 @@ const Footer = () => {
           opacity: 1,
           duration: 0.8,
           stagger: 0.15,
-          ease: 'power3.out',
+          ease: "power3.out",
         },
-        0
+        0,
       );
 
       // Bottom scallop: slide up
@@ -71,9 +71,9 @@ const Footer = () => {
           y: 0,
           opacity: 1,
           duration: 0.9,
-          ease: 'power2.out',
+          ease: "power2.out",
         },
-        0.5
+        0.5,
       );
     }, footerRef);
 
@@ -87,15 +87,38 @@ const Footer = () => {
     >
       {/* Main Content Layout */}
       <div className="flex flex-col md:flex-row items-center justify-center w-full px-10 md:px-20 z-10 flex-1 gap-12 md:gap-0 mt-10">
-
         {/* Left Links */}
-        <div ref={leftLinksRef} className="flex flex-col items-center md:items-end md:w-1/3 gap-6">
-          <Link to="#" className="uppercase font-medium text-xl md:text-2xl tracking-tight hover:opacity-75 transition-opacity">Privacy Policy</Link>
-          <Link to="#" className="uppercase font-medium text-xl md:text-2xl tracking-tight hover:opacity-75 transition-opacity">Returns</Link>
+        <div
+          ref={leftLinksRef}
+          className="flex flex-col items-center md:items-end md:w-1/3 gap-6"
+        >
+          <Link
+            to="#"
+            className="uppercase font-medium text-xl md:text-2xl tracking-tight hover:opacity-75 transition-opacity"
+          >
+            Privacy Policy
+          </Link>
+          <Link
+            to="#"
+            className="uppercase font-medium text-xl md:text-2xl tracking-tight hover:opacity-75 transition-opacity"
+          >
+            Returns
+          </Link>
           <div className="text-center md:text-right">
-            <Link to="#" className="uppercase font-medium text-xl md:text-2xl tracking-tight hover:opacity-75 transition-opacity leading-tight block">Terms &<br/>Conditions</Link>
+            <Link
+              to="#"
+              className="uppercase font-medium text-xl md:text-2xl tracking-tight hover:opacity-75 transition-opacity leading-tight block"
+            >
+              Terms &<br />
+              Conditions
+            </Link>
           </div>
-          <Link to="#" className="uppercase font-medium text-xl md:text-2xl tracking-tight hover:opacity-75 transition-opacity">Shipping</Link>
+          <Link
+            to="#"
+            className="uppercase font-medium text-xl md:text-2xl tracking-tight hover:opacity-75 transition-opacity"
+          >
+            Shipping
+          </Link>
         </div>
 
         {/* Center Logo */}
@@ -109,17 +132,42 @@ const Footer = () => {
         </div>
 
         {/* Right Links */}
-        <div ref={rightLinksRef} className="flex flex-col items-center md:items-start md:w-1/3 gap-6">
-          <Link to="#" className="uppercase font-medium text-xl md:text-2xl tracking-tight hover:opacity-75 transition-opacity">Instagram</Link>
-          <Link to="#" className="uppercase font-medium text-xl md:text-2xl tracking-tight hover:opacity-75 transition-opacity">Facebook</Link>
-          <Link to="#" className="uppercase font-medium text-xl md:text-2xl tracking-tight hover:opacity-75 transition-opacity">LinkedIn</Link>
-          <Link to="#" className="uppercase font-medium text-xl md:text-2xl tracking-tight hover:opacity-75 transition-opacity">Contact</Link>
+        <div
+          ref={rightLinksRef}
+          className="flex flex-col items-center md:items-start md:w-1/3 gap-6"
+        >
+          <Link
+            to="#"
+            className="uppercase font-medium text-xl md:text-2xl tracking-tight hover:opacity-75 transition-opacity"
+          >
+            Instagram
+          </Link>
+          <Link
+            to="#"
+            className="uppercase font-medium text-xl md:text-2xl tracking-tight hover:opacity-75 transition-opacity"
+          >
+            Facebook
+          </Link>
+          <Link
+            to="#"
+            className="uppercase font-medium text-xl md:text-2xl tracking-tight hover:opacity-75 transition-opacity"
+          >
+            LinkedIn
+          </Link>
+          <Link
+            to="#"
+            className="uppercase font-medium text-xl md:text-2xl tracking-tight hover:opacity-75 transition-opacity"
+          >
+            Contact
+          </Link>
         </div>
-
       </div>
 
       {/* Bottom Scalloped Border */}
-      <div ref={bottomRef} className="slideanimation2 flex flex-row-reverse bottom-0 w-full mt-20">
+      <div
+        ref={bottomRef}
+        className="slideanimation2 flex flex-row-reverse bottom-0 w-full mt-20"
+      >
         <img src="images/cover2.svg" alt="" className="w-full object-cover" />
         <img src="images/cover2.svg" alt="" className="w-full object-cover" />
         <img src="images/cover2.svg" alt="" className="w-full object-cover" />
