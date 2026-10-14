@@ -106,7 +106,7 @@ const MessageSection = () => {
 
         {/* Center — GOOD GUT */}
         <div className="flex-1 flex justify-center items-center">
-          <h1 className="text-[#a874e5] lg:text-[20vw] md:text-[18vw] text-[17vw] leading-[0.85] text-center uppercase m-0 flex flex-col tracking-tighter font-medium">
+          <h1 className="text-[#a874e5] lg:text-[20vw] md:text-[18vw] text-[20vw] leading-[0.85] text-center uppercase m-0 flex flex-col tracking-tighter font-medium">
             <span className="overflow-hidden">GOOD</span>
             <span className="overflow-hidden">GUT</span>
           </h1>
